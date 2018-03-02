@@ -1,0 +1,47 @@
+<div class="cat-box">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <h4>{{cat.name}}</h4>
+                    <img [src]="cat.image" class="img-fluid" alt="Responsive image">
+                    <p><span translate>Breed</span>: {{cat.breed}}</p>
+                    <p><span translate>Price</span>: {{cat.price}} BTC</p>
+                    <p><span translate>Generation</span>: {{cat.generation}}</p>
+                    <p><span translate>Kitty ID</span>: {{cat.kitty_id}}</p>
+
+                    <a href="javascript:void(0);" *ngIf="!cat.details" (click)="getDetails(cat.kitty_id)" translate>Details...</a>
+
+                    <div *ngIf="cat.details">
+                        <a href="javascript:void(0);" (click)="removeDetails()" translate>Hide</a>
+                        <pre>{{cat.details | json}}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" [ngSwitch]="action">
+                    <div *ngSwitchCase="'buy'">
+                        <button class="btn btn-block btn-primary" (click)="buy()" translate>Buy</button>
+                    </div>
+                    <div *ngSwitchCase="'owned'">
+                        <div class="btn-group d-flex" role="group">
+                          <button type="button" class="btn btn-primary w-100" (click)="showToDo()" translate>Ancestry</button>
+                          <button type="button" class="btn btn-primary w-100" (click)="showToDo()" translate>Sell</button>
+                          <button type="button" class="btn btn-primary w-100" (click)="showToDo()" translate>Gift</button>
+                          <button type="button" class="btn btn-primary w-100" (click)="showToDo()" translate>Sire</button>
+                        </div>
+                    </div>
+                    <div *ngSwitchCase="'breed'">
+                        <button class="btn btn-block btn-primary" (click)="breed()" translate>Breed with this cat</button>
+                    </div>
+                    <div *ngSwitchCase="'box'">
+                        <button class="btn btn-block btn-primary" (click)="reserve()" translate>Reserve this box</button>
+                    </div>
+                    <div *ngSwitchCase="'explore'">
+                        <!-- Nothing to see -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

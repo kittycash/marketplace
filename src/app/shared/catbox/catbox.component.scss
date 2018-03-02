@@ -1,0 +1,20 @@
+.logo {
+  width: 100px;
+}
+
+q {
+  font-style: italic;
+  font-size: 1.2rem;
+  quotes: "« " " »";
+}
+
+.cat-box {
+	margin-bottom: 20px;
+}
+
+.btn{
+    white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  	word-wrap:break-word;
+}
