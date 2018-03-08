@@ -5,7 +5,7 @@ export const environment = {
   production: true,
   version: env.npm_package_version,
   serverUrl: '/api',
-  fakeServerUrl: '/fakeapi',
+  fakeServerUrl: 'http://127.0.0.1:3000/fakeapi',
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',
