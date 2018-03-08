@@ -131,10 +131,10 @@ export class HttpService extends Http {
   private getProperEndpoint(endpoint: string) {
 
     const validEndpoints = [
-      "/kitty/",
-      "/tx/",
-      "/tx_seq",
-      "/address"
+      "/iko/kitty/",
+      "/iko/tx/",
+      "/iko/tx_seq",
+      "/iko/address"
     ];
 
     let valid = false;

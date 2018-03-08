@@ -12,7 +12,7 @@ const routes = {
   forsale: () => `/forsale/all`,
   forsire: () => `/forsire/all`,
   mykitties: (u: UserContext) => `/user/${u.user_id}/mine`,
-  details: (k: KittyContext) => `/kitty/${k.kitty_id}`
+  details: (k: KittyContext) => `/iko/kitty/${k.kitty_id}`
 };
 
 export interface UserContext {
