@@ -19,8 +19,7 @@ export class CatBoxComponent implements OnInit {
 
   isLoading: boolean;
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   showToDo() {
     alert("Still ToDo");
@@ -50,17 +49,11 @@ export class CatBoxComponent implements OnInit {
       .subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
     }
   }
-  reserve() {
-    if (this.authenticationService.isAuthenticated())
-    {
-      alert("Reserve box code here");
-    }
-    else
-    {
-      alert("You need to login to perform this action");
-      this.authenticationService.logout()
-      .subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
-    }
+  reserve(cat: object) {
+    
+
+     this.kittiesService.setCurrentKitty(cat);
+
   }
 
   removeDetails() {

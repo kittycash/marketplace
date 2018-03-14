@@ -3,22 +3,27 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" translate>Confirm Account</h5>
+          <h5 class="modal-title" translate>Confirm Email Address</h5>
         </div>
         <div class="modal-body">
           <div *ngIf="!doConfirm">
             <div class="row">
               <div class="col-12">
-                <p translate>Enter your phone number:</p>
+                <p translate>Enter your email address:</p>
               </div>
             </div>
             <form class="row"[formGroup]="sendCodeForm" novalidate>
               <div class="col-12">
-                  <int-phone-prefix formControlName="phoneNumber"></int-phone-prefix>
-                  <small [hidden]="sendCodeForm.controls.phoneNumber.valid || sendCodeForm.controls.phoneNumber.untouched"
+                  <input type="email" class="form-control" placeholder="{{'email@example.com' | translate}}" formControlName="email">
+                  <small [hidden]="sendCodeForm.controls.email.valid || sendCodeForm.controls.email.untouched"
                        class="text-danger" translate>
-                    Invalid phone number.  Please make sure you specify a country code. +13105555555
+                    Invalid Email Address.
                 </small>
+              </div>
+              <div class="col-12">
+                <div class="recaptcha-container">
+                  <re-captcha formControlName="recaptcha"></re-captcha>
+                </div>
               </div>
             </form>
           </div>
@@ -29,14 +34,14 @@
               </div>
             </div>
             <form class="row" (ngSubmit)="confirm()" [formGroup]="confirmCodeForm" novalidate>
-              <div class="col-2" *ngFor="let component of formComponents; let $index = index;">
-                <input class="form-control" placeholder="0" formControlName="code{{$index}}" confirmInput="{{$index}}">
+              <div class="col-12">
+                <input type="text" class="form-control" placeholder="{{'enter code from email here' | translate}}" formControlName="code">
               </div>
             </form>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="logout()" translate>Logout</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()" translate>Cancel</button>
           <button type="button" class="btn btn-primary" (click)="confirm()" [disabled]="confirmCodeForm.invalid" *ngIf="doConfirm" translate>Confirm</button>
           <button type="button" class="btn btn-primary" (click)="sendCode()" [disabled]="sendCodeForm.invalid" *ngIf="!doConfirm" translate>Send Code</button>
         </div>

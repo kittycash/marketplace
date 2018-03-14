@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
-import { AccountConfirmationComponent } from './account_confirmation.component';
+import { EmailConfirmationComponent } from './email_confirmation.component';
 
 @NgModule({
   imports: [
@@ -21,4 +21,4 @@ import { AccountConfirmationComponent } from './account_confirmation.component';
   providers: [
   ]
 })
-export class AccountConfirmationModule { }
+export class EmailConfirmationModule { }

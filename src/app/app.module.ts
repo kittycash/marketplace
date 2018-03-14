@@ -12,7 +12,6 @@ import { SharedModule } from '@app/shared';
 import { ExploreModule } from './explore/explore.module';
 import { BoxesModule } from './boxes/boxes.module';
 import { AboutModule } from './about/about.module';
-import { MyKittiesModule } from './mykitties/mykitties.module';
 import { ForSaleModule } from './forsale/forsale.module';
 import { DenModule } from './den/den.module';
 import { LoginModule } from './login/login.module';
@@ -33,7 +32,6 @@ import { AppRoutingModule } from './app-routing.module';
     ExploreModule,
     BoxesModule,
     AboutModule,
-    MyKittiesModule,
     ForSaleModule,
     DenModule,
     LoginModule,

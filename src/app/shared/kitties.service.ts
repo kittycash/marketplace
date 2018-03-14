@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { of } from 'rxjs/observable/of';
 import { map, catchError } from 'rxjs/operators';
 import { extend } from 'lodash';
 import { I18nService } from '../core/i18n.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const routes = {
-  explore: () => `/explore/all`,
-  boxes: () => `/boxes/all`,
-  forsale: () => `/forsale/all`,
-  forsire: () => `/forsire/all`,
-  mykitties: (u: UserContext) => `/user/${u.user_id}/mine`,
-  details: (k: KittyContext) => `/iko/kitty/${k.kitty_id}`
+  explore: () => `/kitty/explore/all`,
+  boxes: () => `/kitty/boxes/all`,
+  forsale: () => `/kitty/forsale/all`,
+  forsire: () => `/kitty/forsire/all`,
+  details: (k: KittyContext) => `/iko/kitty/${k.kitty_id}`,
+  request_code: () => `/verification/request_code`,
+  verify_code: () => `/verification/verify_code`
 };
 
 export interface UserContext {
@@ -25,13 +28,36 @@ export interface KittyContext {
   kitty_id: number;
 }
 
+export interface RequestCodeContext {
+  email: string;
+  kitty_id: string;
+  recaptcha: string;
+}
+
+export interface VerifyCodeContext {
+  email: string;
+  kitty_id: string;
+  code: string;
+}
+
 @Injectable()
 export class KittiesService {
 
+  private kittySource = new BehaviorSubject<any>(false);
+  currentKitty = this.kittySource.asObservable();
+
   constructor(private http: Http, private i18nService: I18nService) {}
 
+  setCurrentKitty(kitty: object) {
+    this.kittySource.next(kitty)
+  }
+
+  unsetCurrentKitty(){
+    this.kittySource.next(false);
+  }
+
   getExplore(): Observable<object> {
-    return this.http.get(routes.explore(), this.getOptions())
+    return this.http.get(routes.explore(), this.prepareOptions({cache: false}))
       .pipe(
         map((res: Response) => res.json()),
         map(body => body.data),
@@ -40,7 +66,7 @@ export class KittiesService {
   }
 
   getBoxes(): Observable<object> {
-    return this.http.get(routes.boxes(), this.getOptions())
+    return this.http.get(routes.boxes(), this.prepareOptions())
       .pipe(
         map((res: Response) => res.json()),
         map(body => body.data),
@@ -49,7 +75,7 @@ export class KittiesService {
   }
 
   getForSale(): Observable<object> {
-    return this.http.get(routes.forsale(), this.getOptions())
+    return this.http.get(routes.forsale(), this.prepareOptions())
       .pipe(
         map((res: Response) => res.json()),
         map(body => body.data),
@@ -58,7 +84,7 @@ export class KittiesService {
   }
 
   getForSire(): Observable<object> {
-    return this.http.get(routes.forsire(), this.getOptions())
+    return this.http.get(routes.forsire(), this.prepareOptions())
       .pipe(
         map((res: Response) => res.json()),
         map(body => body.data),
@@ -66,17 +92,8 @@ export class KittiesService {
       );
   }
 
-  getMyKitties(context: UserContext): Observable<object> {
-    return this.http.get(routes.mykitties(context), this.getOptions())
-      .pipe(
-        map((res: Response) => res.json()),
-        map(body => body.data),
-        catchError(() => of('Error, could not load your kitties'))
-      );
-  }
-
   getDetails(context: KittyContext): Observable<object> {
-    return this.http.get(routes.details(context), this.getOptions())
+    return this.http.get(routes.details(context), this.prepareOptions())
       .pipe(
         map((res: Response) => res.json()),
         map(body => body.data),
@@ -84,14 +101,49 @@ export class KittiesService {
       );
   } 
 
-  private getOptions() {
+  request_code(context: RequestCodeContext): Observable<string | boolean> {
+    return this.http.post(routes.request_code(), context, this.prepareOptions())
+      .pipe(
+        map((res: Response) => {
+          if (res && res.status === 201)
+          {
+            return true;
+          }
+          else
+          {
+            return false;
+          }
+        
+        }),
+        catchError(() => of(false))
+      );
+  } 
+
+  verify_code(context: VerifyCodeContext): Observable<string | boolean> {
+    return this.http.post(routes.verify_code(), context, this.prepareOptions())
+      .pipe(
+        map((res: Response) => {
+          if (res && res.status === 204)
+          {
+            return true;
+          }
+          else
+          {
+            return false;
+          }
+         
+        }),
+        catchError(() => of(false))
+      );
+  } 
+
+  private prepareOptions(data?:any) {
 
     let headers = new Headers();
     headers.append('Accept-Language', this.getLanguage());
-    let opts = new RequestOptions({cache: true});
-    opts.headers = headers;
-    
-    return opts
+
+    var options = extend({cache: true, headers: headers}, data);
+    return options;
   }
 
   private getLanguage() {

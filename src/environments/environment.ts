@@ -7,10 +7,10 @@ export const environment = {
   production: false,
   version: '(dev)',
   serverUrl: '/api',
-  fakeServerUrl: '/fakeapi',
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',
     'en-Test'
-  ]
+  ],
+  recaptchaSiteKey: '6LfNe0wUAAAAAH15ICx6IAVxNBi9FaGOg9JY7tNG'
 };

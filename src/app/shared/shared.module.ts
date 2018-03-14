@@ -4,10 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoaderComponent } from './loader/loader.component';
 import { CatBoxComponent } from './catbox/catbox.component';
-import { AccountConfirmationComponent } from './account_confirmation/account_confirmation.component';
-import { ConfirmInputDirective } from './account_confirmation/confirm_input.directive';
-import { FocusService } from './account_confirmation/focus.service';
-import { InternationalPhoneModule } from 'ng4-intl-phone';
+import { EmailConfirmationComponent } from './email_confirmation/email_confirmation.component';
+import { environment } from '@env/environment';
+import { RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 @NgModule({
   imports: [
@@ -15,22 +15,24 @@ import { InternationalPhoneModule } from 'ng4-intl-phone';
     FormsModule,
     TranslateModule,
     ReactiveFormsModule,
-    InternationalPhoneModule
+    RecaptchaModule.forRoot(),
+    RecaptchaFormsModule
   ],
-  providers: [
-    FocusService
+  providers: [ 
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: { siteKey: environment.recaptchaSiteKey } as RecaptchaSettings,
+    }
   ],
   declarations: [
     LoaderComponent,
     CatBoxComponent,
-    AccountConfirmationComponent,
-    ConfirmInputDirective
+    EmailConfirmationComponent
   ],
   exports: [
     LoaderComponent,
     CatBoxComponent,
-    AccountConfirmationComponent,
-    ConfirmInputDirective,
+    EmailConfirmationComponent
   ]
 })
 export class SharedModule { }

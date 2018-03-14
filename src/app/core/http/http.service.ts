@@ -40,10 +40,10 @@ export class HttpService extends Http {
 
     if (typeof request === 'string') {
       url = request;
-      request = this.getProperEndpoint(url); //environment.serverUrl + url;
+      request = environment.serverUrl + url;
     } else {
       url = request.url;
-      request.url = this.getProperEndpoint(url); //environment.serverUrl + url;
+      request.url = environment.serverUrl + url;
     }
     
     if (!requestOptions.cache) {
@@ -118,42 +118,14 @@ export class HttpService extends Http {
 
   // Customize the default behavior for all http requests here if needed
   private httpRequest(request: string|Request, options: RequestOptionsArgs): Observable<Response> {
-    
+   
+     //Clear additional options
     let req = super.request(request, options);
 
     if (!options.skipErrorHandler) {
       req = req.pipe(catchError((error: any) => this.errorHandler(error)));
     }
     return req;
-  }
-
-  // Determines if the endpoint should go to the real API or the fake one
-  private getProperEndpoint(endpoint: string) {
-
-    const validEndpoints = [
-      "/iko/kitty/",
-      "/iko/tx/",
-      "/iko/tx_seq",
-      "/iko/address"
-    ];
-
-    let valid = false;
-
-    for (var i = 0; i < validEndpoints.length; i++)
-    {
-      if (endpoint.startsWith(validEndpoints[i]))
-      {
-        valid = true;
-      }
-    }
-    if (valid)
-    {
-      return environment.serverUrl + endpoint;
-    }
-    else
-    {
-      return environment.fakeServerUrl + endpoint;
-    }
   }
 
   // Customize the default error handler here if needed

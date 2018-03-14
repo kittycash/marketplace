@@ -35,7 +35,7 @@
                         <button class="btn btn-block btn-primary" (click)="breed()" translate>Breed with this cat</button>
                     </div>
                     <div *ngSwitchCase="'box'">
-                        <button class="btn btn-block btn-primary" (click)="reserve()" translate>Reserve this box</button>
+                        <button class="btn btn-block btn-primary" (click)="reserve(cat)" translate>Reserve this box</button>
                     </div>
                     <div *ngSwitchCase="'explore'">
                         <!-- Nothing to see -->

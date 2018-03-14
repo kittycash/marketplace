@@ -60,4 +60,4 @@
   </nav>
 </header>
 
-<account-confirmation *ngIf="authenticated && !confirmed;"></account-confirmation>
+<email-confirmation *ngIf="currentKitty && !currentKitty.confirmed;"></email-confirmation>
