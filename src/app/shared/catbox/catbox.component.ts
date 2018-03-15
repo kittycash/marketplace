@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { I18nService } from '../../core/i18n.service';
 import { AuthenticationService } from '../../core/authentication/authentication.service';
 import { KittiesService } from '../kitties.service';
+import { Kitty } from '../models/kitty.model';
 
 @Component({
   selector: 'cat-box',
@@ -69,7 +70,7 @@ export class CatBoxComponent implements OnInit {
   }
 
 
-  @Input() cat: any;
+  @Input() cat: Kitty;
   @Input() action: string = 'buy';
 }
 

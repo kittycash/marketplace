@@ -9,14 +9,21 @@ import { I18nService } from '../core/i18n.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const routes = {
-  explore: () => `/kitty/explore/all`,
-  boxes: () => `/kitty/boxes/all`,
-  forsale: () => `/kitty/forsale/all`,
-  forsire: () => `/kitty/forsire/all`,
+  explore: () => `/fakekitty/explore/all`,
+  boxes: (b: BoxesContext) => `/kitty/entries?open=false&price_btc=${b.btc_filter}&price_sky=${b.sky_filter}&order=${b.order}&start_index=${b.page.start_index}&page_size=${b.page.page_size}`,
+  forsale: () => `/fakekitty/forsale/all`,
+  forsire: () => `/fakekitty/forsire/all`,
   details: (k: KittyContext) => `/iko/kitty/${k.kitty_id}`,
   request_code: () => `/verification/request_code`,
   verify_code: () => `/verification/verify_code`
 };
+
+export interface BoxesContext {
+  btc_filter: string;
+  sky_filter: string;
+  order: string;
+  page: any;
+}
 
 export interface UserContext {
   // The user's identifier
@@ -65,11 +72,11 @@ export class KittiesService {
       );
   }
 
-  getBoxes(): Observable<object> {
-    return this.http.get(routes.boxes(), this.prepareOptions())
+  getBoxes(context: BoxesContext): Observable<object> {
+    return this.http.get(routes.boxes(context), this.prepareOptions({cache: false}))
       .pipe(
         map((res: Response) => res.json()),
-        map(body => body.data),
+        map(body => body),
         catchError(() => of('Error, could not load boxes'))
       );
   }
@@ -102,7 +109,7 @@ export class KittiesService {
   } 
 
   request_code(context: RequestCodeContext): Observable<string | boolean> {
-    return this.http.post(routes.request_code(), context, this.prepareOptions())
+    return this.http.post(routes.request_code(), context, this.prepareOptions({cache: false}))
       .pipe(
         map((res: Response) => {
           if (res && res.status === 201)
@@ -120,7 +127,7 @@ export class KittiesService {
   } 
 
   verify_code(context: VerifyCodeContext): Observable<string | boolean> {
-    return this.http.post(routes.verify_code(), context, this.prepareOptions())
+    return this.http.post(routes.verify_code(), context, this.prepareOptions({cache: false}))
       .pipe(
         map((res: Response) => {
           if (res && res.status === 204)

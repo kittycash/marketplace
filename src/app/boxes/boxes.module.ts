@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { FormsModule } from '@angular/forms';
 import { CoreModule } from '@app/core';
 import { SharedModule } from '@app/shared';
 import { BoxesRoutingModule } from './boxes-routing.module';
 import { BoxesComponent } from './boxes.component';
 import { KittiesService } from '../shared/kitties.service';
 import { NgxPaginationModule } from 'ngx-pagination'; 
+import { Paging } from '../shared/paging';
 
 @NgModule({
   imports: [
     CommonModule,
     TranslateModule,
+    FormsModule,
     CoreModule,
     SharedModule,
     BoxesRoutingModule,
@@ -22,7 +24,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BoxesComponent
   ],
   providers: [
-    KittiesService
+    KittiesService,
+    Paging
   ]
 })
 export class BoxesModule { }
