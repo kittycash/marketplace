@@ -6,7 +6,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { environment } from '@env/environment';
+import { environment } from '../environments/environment';
 import { CoreModule } from './core';
 import { SharedModule } from './shared';
 import { ExploreModule } from './explore/explore.module';
