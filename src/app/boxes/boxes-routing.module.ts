@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { Route, extract } from '@app/core';
+import { Route, extract } from '../core';
 import { BoxesComponent } from './boxes.component';
 
 const routes: Routes = Route.withShell([

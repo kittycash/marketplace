@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CoreModule } from '@app/core';
-import { SharedModule } from '@app/shared';
+import { CoreModule } from '../core';
+import { SharedModule } from '../shared';
 import { ForSaleRoutingModule } from './forsale-routing.module';
 import { ForSaleComponent } from './forsale.component';
 import { KittiesService } from '../shared/kitties.service';

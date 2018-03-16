@@ -7,8 +7,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { environment } from '@env/environment';
-import { CoreModule } from '@app/core';
-import { SharedModule } from '@app/shared';
+import { CoreModule } from './core';
+import { SharedModule } from './shared';
 import { ExploreModule } from './explore/explore.module';
 import { BoxesModule } from './boxes/boxes.module';
 import { AboutModule } from './about/about.module';
@@ -16,8 +16,8 @@ import { ForSaleModule } from './forsale/forsale.module';
 import { DenModule } from './den/den.module';
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
+import { MarketplaceAppComponent } from './marketplace_app.component';
+import { MarketplaceAppRoutingModule } from './marketplace_app-routing.module';
 
 @NgModule({
   imports: [
@@ -36,15 +36,18 @@ import { AppRoutingModule } from './app-routing.module';
     DenModule,
     LoginModule,
     RegisterModule,
-    AppRoutingModule
+    MarketplaceAppRoutingModule
   ],
   declarations: [
-    AppComponent
+    MarketplaceAppComponent
   ],
   providers: [
   ],
   entryComponents: [
   ],
-  bootstrap: [AppComponent]
+  exports: [
+    MarketplaceAppComponent
+  ],
+  bootstrap: [MarketplaceAppComponent]
 })
-export class AppModule { }
+export class MarketplaceAppModule { }

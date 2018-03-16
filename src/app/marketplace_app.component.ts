@@ -5,18 +5,18 @@ import { TranslateService } from '@ngx-translate/core';
 import { merge } from 'rxjs/observable/merge';
 import { filter, map, mergeMap } from 'rxjs/operators';
 
-import { environment } from '@env/environment';
-import { Logger, I18nService } from '@app/core';
+import { environment } from '../environments/environment';
+import { Logger, I18nService } from './core';
 
 
 const log = new Logger('App');
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'marketplace-root',
+  templateUrl: './marketplace_app.component.html',
+  styleUrls: ['./marketplace_app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class MarketplaceAppComponent implements OnInit {
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,

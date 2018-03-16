@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "outDir": "./lib",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "target": "es5",
+        "typeRoots": [
+          "node_modules/@types"
+        ],
+        "lib": [
+           "es2017",
+            "dom"
+        ],
+        "baseUrl": "build/",
+        "paths": {
+          "@app/*": ["app/*"],
+          "@env/*": ["environments/*"]
+        }
+    },
+    "include": [
+        "./build/**/*"
+    ],
+    "files": [
+        "./node_modules/@types/core-js/index.d.ts"
+    ],
+    "angularCompilerOptions": {
+        "skipTemplateCodegen": true
+    }
+}

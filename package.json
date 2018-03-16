@@ -1,5 +1,5 @@
 {
-  "name": "KittyCash",
+  "name": "kittycash-marketplace",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -13,7 +13,10 @@
     "translations:extract": "ngx-translate-extract --input ./src --output ./src/translations/template.json --format=json --clean -sort --marker extract",
     "docs": "hads ./docs -o",
     "env": "ngx-scripts env npm_package_version",
-    "generate": "ng generate"
+    "generate": "ng generate",
+    "prepare-lib": "gulp inline-build-templates copy-environments copy-translations",
+    "build-lib": "node_modules/.bin/ngc -p ./tsconfig.lib.json",
+    "package-lib": "gulp package-json && cd lib && npm pack"
   },
   "dependencies": {
     "@angular/animations": "^5.2.0",
@@ -28,9 +31,13 @@
     "@angular/service-worker": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.9",
     "@ngx-translate/core": "^9.0.1",
+    "@types/core-js": "^0.9.46",
     "bootstrap": "4.0.0",
-    "core-js": "^2.5.2",
+    "core-js": "^2.5.3",
     "font-awesome": "^4.7.0",
+    "gulp": "^3.9.1",
+    "gulp-inline-ng2-template": "^4.1.0",
+    "gulp-rename": "^1.2.2",
     "intl-tel-input": "^12.1.10",
     "lodash": "^4.17.4",
     "ng-recaptcha": "^3.0.3",

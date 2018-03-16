@@ -23,6 +23,9 @@ for (let langauge in translations) {
 	console.log("Merging " + langauge + " with template");
 	const merge = Object.assign(template, translations[langauge]);
 	fs.writeFileSync(langauge + '.json', JSON.stringify(merge, null, 2), 'utf8');
+
+	//Write a ts file for library compilation
+	fs.writeFileSync(langauge + '.ts', "export default '';" , 'utf8');
 }
 
 console.log("Done");

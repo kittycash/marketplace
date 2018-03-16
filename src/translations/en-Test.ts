@@ -1,4 +1,4 @@
-{
+export default {
   "APP_NAME": "Kitty Cash Marketplace(TEST)",
   "About": "About(TEST)",
   "Already have an account?": "Already have an account?(TEST)",

@@ -25,6 +25,11 @@
         "main.scss",
         "../node_modules/intl-tel-input/build/css/intlTelInput.css"
       ],
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "../node_modules/"
+        ]
+      },
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {

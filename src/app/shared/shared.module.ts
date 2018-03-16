@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LoaderComponent } from './loader/loader.component';
 import { CatBoxComponent } from './catbox/catbox.component';
 import { EmailConfirmationComponent } from './email_confirmation/email_confirmation.component';
-import { environment } from '@env/environment';
+import { environment } from '../..//environments/environment';
 import { RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
