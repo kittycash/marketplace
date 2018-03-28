@@ -1,51 +1,33 @@
-<div class="container-fluid">
-  <div class="jumbotron text-center">
-    <h1>
-      <img class="logo" src="assets/logo.png" alt="KittyCash"/>
-      <span translate>Boxes</span>
-    </h1>
-    <app-loader [isLoading]="isLoading"></app-loader>
-  </div>
-
-    <div class="row">
-      <div class="col-3">
-        <label>Price Range</label>
-      </div>
-      <div class="col-4">
-        <label>Order</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-1">
-        <input class="form-control" type="number" [(ngModel)]="filter.coin_min">
-      </div>
-      <div class="col-1">
-        <input class="form-control" type="number" [(ngModel)]="filter.coin_max"> 
-      </div>
-      <div class="col-1">
-        <select class="form-control" [(ngModel)]="filter.coin_type">
-          <option value="">None</option>
-          <option value="btc">BTC</option>
-          <option value="sky">SKY</option>
-        </select>
-      </div>
-      <div class="col-3">
-        <select class="form-control" [(ngModel)]="filter.sort_key" [disabled]="filter.coin_type != ''">
-          <option value="kitty_id">Kitty ID</option>
-          <option value="name">Name</option>
-          <option value="price_btc">Price (BTC)</option>
-          <option value="price_sky">Price (SKY)</option>
-        </select>
-      </div>
-      <div class="col-1">
-        <select class="form-control" [(ngModel)]="filter.sort_direction">
-          <option value="">ASC</option>
-          <option value="-">DESC</option>
-        </select>
-      </div>
-      <div class="col-1">
-        <button class="btn btn-primary" (click)="loadBoxes()">Load</button>
-      </div>
+<div class="container-fluid boxes pt-5">
+    <div class="row filters mb-5">
+      <div class="col-8">
+        <form class="form-inline">
+          <label>Price Range</label>
+          <input class="form-control" type="number" [(ngModel)]="filter.coin_min" placeholder="0">
+          <label> - </label>
+          <input class="form-control" type="number" [(ngModel)]="filter.coin_max" placeholder="2"> 
+          <select class="form-control" [(ngModel)]="filter.coin_type">
+            <option value="">None</option>
+            <option value="btc">BTC</option>
+            <option value="sky">SKY</option>
+          </select>
+          <label class="ml-4">Order</label>
+          <select class="form-control" [(ngModel)]="filter.sort_key" [disabled]="filter.coin_type != ''">
+            <option value="kitty_id">Kitty ID</option>
+            <option value="name">Name</option>
+            <option value="price_btc">Price (BTC)</option>
+            <option value="price_sky">Price (SKY)</option>
+          </select>
+           <select class="form-control" [(ngModel)]="filter.sort_direction">
+            <option value="">ASC</option>
+            <option value="-">DESC</option>
+          </select>
+          <button class="btn btn-outline-primary ml-4" (click)="loadBoxes()">Load</button>
+          </form>
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
     </div>
     <div class="row" [hidden]="isLoading">
     	<div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let box of boxes | paginate: { itemsPerPage: per_page, currentPage: page, totalItems: count }">

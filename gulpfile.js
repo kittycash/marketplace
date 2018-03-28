@@ -29,7 +29,7 @@ gulp.task('inline-build-templates', () => {
 
 gulp.task('copy-environments', () => {
 	return gulp
-	    .src(['./src/environments/environment.prod.ts'])
+	    .src(['./src/environments/environment.electron.ts'])
       .pipe(rename("environment.ts"))
 	    .pipe(gulp.dest('./build/environments/'));
 });

@@ -8,6 +8,6 @@ export const environment = {
     'en-US',
     'en-Test'
   ],
-  showShell: true,
+  showShell: false,
   recaptchaSiteKey: '6LfNe0wUAAAAAH15ICx6IAVxNBi9FaGOg9JY7tNG'
 };

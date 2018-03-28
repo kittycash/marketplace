@@ -3,6 +3,8 @@ import { Routes } from '@angular/router';
 import { ShellComponent } from './shell/shell.component';
 import { AuthenticationGuard } from './authentication/authentication.guard';
 
+import { environment } from '../../environments/environment';
+
 /**
  * Provides helper methods to create routes.
  */
@@ -16,7 +18,7 @@ export class Route {
   static withShell(routes: Routes): Routes {
     return [{
       path: '',
-      component: ShellComponent,
+      component: environment.showShell ? ShellComponent : null,
       children: routes,
       // Reuse ShellComponent instance when navigating between child views
       data: { reuse: true }
@@ -31,7 +33,7 @@ export class Route {
   static withAuthenticatedShell(routes: Routes): Routes {
     return [{
       path: '',
-      component: ShellComponent,
+      component: environment.showShell ? ShellComponent : null,
       children: routes,
       canActivate: [AuthenticationGuard],
       // Reuse ShellComponent instance when navigating between child views
