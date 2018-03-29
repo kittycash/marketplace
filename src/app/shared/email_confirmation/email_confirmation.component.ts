@@ -29,6 +29,8 @@ export class EmailConfirmationComponent implements OnInit {
   codeError: boolean = false;
   timerRemaining: number;
   currentCurrency: string = 'btc';
+  QRType: string = 'img';
+  paymentAddress: string = 'DdzFFzCqrhsykj9xNk4UjMABrJaitDmCM8MUbk8xJy6zmANigjB9HunWDjnPZWrjKYdPeHF6a3oiMpvdBP2xR6idZ5zqG4KkxVwvouoz';
 
   constructor(private router: Router,
   			      private formBuilder: FormBuilder,

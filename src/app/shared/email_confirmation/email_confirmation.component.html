@@ -13,10 +13,10 @@
           <div *ngIf="doPayment">
             <div class="row">
               <div class="col-4">
-                <img class="img-fluid" src="assets/fake_qr.svg">
+               <ngx-qrcode [qrc-element-type]="QRType" [qrc-value] = "paymentAddress"></ngx-qrcode>
               </div>
               <div class="col-8">
-                <p class="address-display">DdzFFzCqrhsykj9xNk4UjMABrJaitDmCM8MUbk8xJy6zmANigjB9HunWDjnPZWrjKYdPeHF6a3oiMpvdBP2xR6idZ5zqG4KkxVwvouoz</p>
+                <p class="address-display">{{paymentAddress}}</p>
               </div>
             </div>
             <div class="row price pt-3">

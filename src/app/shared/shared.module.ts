@@ -9,6 +9,7 @@ import { environment } from '../..//environments/environment';
 import { RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 import { CountdownComponent } from './email_confirmation/countdown.component';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { CountdownComponent } from './email_confirmation/countdown.component';
     TranslateModule,
     ReactiveFormsModule,
     RecaptchaModule.forRoot(),
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    NgxQRCodeModule
   ],
   providers: [ 
     {

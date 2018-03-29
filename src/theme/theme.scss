@@ -32,6 +32,12 @@ body {
     border-color: $kittyred;
 }
 
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: $kittyred;
+    border-color: $kittyred;
+}
+
 .btn-outline-primary {
     color: $kittyred;
     border-color: $kittyred;
@@ -41,4 +47,19 @@ body {
     color: $white;
     background-color: $kittyred;
     border-color: $kittyred;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active, .show > .btn-outline-primary.dropdown-toggle {
+    color: #fff;
+    background-color: $kittyred;
+    border-color: $kittyred;
+}
+
+
+.qrcode img {
+    width: 100%;
+}
+
+.ngx-pagination .current {
+    background: $kittyred !important;
 }
