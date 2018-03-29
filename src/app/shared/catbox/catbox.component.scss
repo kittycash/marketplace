@@ -10,6 +10,8 @@ q {
 
 .cat-box {
 	margin-bottom: 20px;
+	background-color: white;
+	border-radius: 25px;
 }
 
 .btn{
@@ -17,4 +19,29 @@ q {
   	overflow: hidden;
   	text-overflow: ellipsis;
   	word-wrap:break-word;
+}
+
+.cat-box h2 {
+	font-family: 'Montserrat-Bold', sans-serif;
+	font-size: 12px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.cat-box h1 {
+	font-family: 'Montserrat-Bold', sans-serif;
+	font-size: 20px;
+	text-align: center;
+}
+
+.cat-box p {
+	font-size: 14px;
+	text-align: center;
+	white-space: nowrap;
+	padding: 0;
+	margin: 0;
+}
+
+.cat-box p.med {
+	font-family: 'Montserrat-Medium', sans-serif;
 }

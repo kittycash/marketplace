@@ -5,6 +5,7 @@ import { Route, extract } from '../core';
 import { BoxesComponent } from './boxes.component';
 
 const routes: Routes = Route.withShell([
+  { path: '', redirectTo: '/boxes', pathMatch: 'full' },
   { path: 'boxes', component: BoxesComponent, data: { title: extract('Boxes For Sale') } }
 ]);
 

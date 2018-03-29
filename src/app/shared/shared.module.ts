@@ -8,6 +8,7 @@ import { EmailConfirmationComponent } from './email_confirmation/email_confirmat
 import { environment } from '../..//environments/environment';
 import { RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
+import { CountdownComponent } from './email_confirmation/countdown.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
   declarations: [
     LoaderComponent,
     CatBoxComponent,
-    EmailConfirmationComponent
+    EmailConfirmationComponent,
+    CountdownComponent
   ],
   exports: [
     LoaderComponent,

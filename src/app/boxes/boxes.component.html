@@ -1,7 +1,9 @@
+<email-confirmation *ngIf="currentKitty && !currentKitty.confirmed;"></email-confirmation>
+
 <div class="container-fluid boxes pt-5">
     <div class="row filters mb-5">
       <div class="col-8">
-        <form class="form-inline">
+        <div class="form-inline">
           <label>Price Range</label>
           <input class="form-control" type="number" [(ngModel)]="filter.coin_min" placeholder="0">
           <label> - </label>
@@ -23,14 +25,14 @@
             <option value="-">DESC</option>
           </select>
           <button class="btn btn-outline-primary ml-4" (click)="loadBoxes()">Load</button>
-          </form>
+          </div>
         </div>
         <div class="col-4">
           <input type="text" class="form-control" placeholder="Search">
         </div>
     </div>
     <div class="row" [hidden]="isLoading">
-    	<div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let box of boxes | paginate: { itemsPerPage: per_page, currentPage: page, totalItems: count }">
+    	<div class="col-12 col-sm-6 col-md-4" *ngFor="let box of boxes | paginate: { itemsPerPage: per_page, currentPage: page, totalItems: count }">
     		<cat-box [cat]="box" action="box"></cat-box>
     	</div>
     </div>
@@ -40,5 +42,4 @@
     		<pagination-controls (pageChange)="getPage($event)" previousLabel="{{'Previous' | translate}}" nextLabel="{{'Next' | translate}}"></pagination-controls>
     	</div>
     </div>
-
 </div>

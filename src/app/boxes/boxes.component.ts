@@ -16,6 +16,7 @@ import { FilterOptions } from '../shared/models/filter_options.model';
 })
 export class BoxesComponent implements OnInit {
 
+  currentKitty: any;
   boxes: Array<Kitty>;
   page: number = 1;
   per_page: number = 8;
@@ -36,6 +37,7 @@ export class BoxesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.kittiesService.currentKitty.subscribe(kitty => this.currentKitty = kitty);
     this.loadBoxes();
   }
 
@@ -76,7 +78,7 @@ export class BoxesComponent implements OnInit {
     this.kittiesService.getBoxes(requestOpts)
       .pipe(finalize(() => { this.isLoading = false; }))
       .subscribe((res: Entries) => { 
-        this.count = res.count;
+        this.count = res.total_count;
         this.boxes = [];
         //Assign responce objects to Kitty Class
         res.entries.map(kitty =>{

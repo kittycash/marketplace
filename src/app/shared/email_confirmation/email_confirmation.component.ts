@@ -1,10 +1,13 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { finalize } from 'rxjs/operators';
+
 import { Router } from '@angular/router';
 
 import { KittiesService } from '../kitties.service';
 import { AuthenticationService } from '../../core/authentication/authentication.service';
+
+import { CountdownComponent } from './countdown.component';
 
 @Component({
   selector: 'email-confirmation',
@@ -19,9 +22,13 @@ export class EmailConfirmationComponent implements OnInit {
   sendCodeForm: FormGroup;
   confirmCodeForm: FormGroup;
   formComponents: Array<number>;
-  isLoading: boolean;
+  isLoading: boolean = false;
   doConfirm: boolean = false;
+  doPayment: boolean = false;
   currentKitty: any;
+  codeError: boolean = false;
+  timerRemaining: number;
+  currentCurrency: string = 'btc';
 
   constructor(private router: Router,
   			      private formBuilder: FormBuilder,
@@ -43,6 +50,14 @@ export class EmailConfirmationComponent implements OnInit {
     });
   }
   
+  resetCodeError(){
+    this.codeError = false;
+  }
+
+  confirmPayment(){
+    alert("Need teller working to confirm payment!");
+  }
+  
   sendCode(){
     this.kittiesService.request_code(this.sendCodeForm.value)
       .pipe(finalize(() => { this.isLoading = false; }))
@@ -51,10 +66,13 @@ export class EmailConfirmationComponent implements OnInit {
         {
           this.createConfirmForm(this.sendCodeForm.value.email);
           this.doConfirm = true;
+          let currentDate = new Date();
+          this.timerRemaining = new Date(currentDate.getTime() + (30 * 60 * 1000)).getTime();
+          console.log(this.timerRemaining);
         }
         else
         {
-          alert("Error requesting code.  I think this should come from the server");
+          this.codeError = true;
         }
       });
   }
@@ -69,11 +87,11 @@ export class EmailConfirmationComponent implements OnInit {
       .subscribe((success: boolean) => { 
         if (success)
         {
-          alert("Code validated.  Send request to teller!");
+          this.doPayment = true;
         }     
         else
         {
-          alert("Error validating code.  I think this should come from the server");
+          this.codeError = true;
         }
     });
   }

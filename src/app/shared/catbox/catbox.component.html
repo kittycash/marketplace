@@ -1,28 +1,21 @@
-<div class="cat-box">
+<div class="cat-box py-3">
     <div class="row">
         <div class="col-12">
             <div class="row">
-                <div class="col-12">
-                    <h4>{{cat.name}}</h4>
-                    <img [src]="cat.image" class="img-fluid" alt="Responsive image">
+                <div class="col-6 offset-3">
+                    <img [src]="cat.image" class="img-fluid" alt="{{cat.name}}">
+                    <h2 class="pt-3">Legendary</h2>
+                    <h1>{{cat.name}}</h1>
+                    <p class="med">{{cat.price_btc}} BTC</p>
+                    <p class="med">For Sale</p>
+                    <p class="pt-1"><span translate>Created</span>: 10/3/17</p>
                     <p><span translate>Breed</span>: {{cat.breed}}</p>
-                    <p><span translate>Price BTC</span>: {{cat.price_btc}} BTC</p>
-                    <p><span translate>Price SKY</span>: {{cat.price_sky}} SKY</p>
-                    <p><span translate>Generation</span>: {{cat.generation}}</p>
-                    <p><span translate>Kitty ID</span>: {{cat.kitty_id}}</p>
-
-                    <a href="javascript:void(0);" *ngIf="!cat.details" (click)="getDetails(cat.kitty_id)" translate>Details...</a>
-
-                    <div *ngIf="cat.details">
-                        <a href="javascript:void(0);" (click)="removeDetails()" translate>Hide</a>
-                        <pre>{{cat.details | json}}</pre>
-                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12" [ngSwitch]="action">
+            <div class="row pt-3">
+                <div class="col-12 text-center" [ngSwitch]="action">
                     <div *ngSwitchCase="'buy'">
-                        <button class="btn btn-block btn-primary" (click)="buy()" translate>Buy</button>
+                        <button class="btn btn-primary" (click)="buy()" translate>Buy</button>
                     </div>
                     <div *ngSwitchCase="'owned'">
                         <div class="btn-group d-flex" role="group">
@@ -36,7 +29,7 @@
                         <button class="btn btn-block btn-primary" (click)="breed()" translate>Breed with this cat</button>
                     </div>
                     <div *ngSwitchCase="'box'">
-                        <button class="btn btn-block btn-primary" (click)="reserve(cat)" translate>Reserve this box</button>
+                        <button class="btn btn-primary" (click)="reserve(cat)" translate>Reserve</button>
                     </div>
                     <div *ngSwitchCase="'explore'">
                         <!-- Nothing to see -->

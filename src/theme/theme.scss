@@ -17,10 +17,19 @@ body {
 
 .btn-primary {
     color: $white;
+    background-color: $kittyred;
+    border-color: $kittyred;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    background-color: $kittyred;
+    border-color: $kittyred;
 }
 
 .btn-primary:hover {
     color: $kittyred;
+    background-color: transparent;
+    border-color: $kittyred;
 }
 
 .btn-outline-primary {

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { I18nService } from '../../i18n.service';
-import { KittiesService } from '../../../shared/kitties.service';
 
 @Component({
   selector: 'app-header',
@@ -13,16 +12,12 @@ import { KittiesService } from '../../../shared/kitties.service';
 export class HeaderComponent implements OnInit {
 
   menuHidden = true;
-  currentKitty: any;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
-              private i18nService: I18nService,
-              private kittiesService: KittiesService) { }
+              private i18nService: I18nService) { }
 
-  ngOnInit() { 
-    this.kittiesService.currentKitty.subscribe(kitty => this.currentKitty = kitty);
-  }
+  ngOnInit() { }
 
   toggleMenu() {
     this.menuHidden = !this.menuHidden;
