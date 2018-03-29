@@ -31,7 +31,7 @@ export class CountdownComponent implements OnDestroy {
   }
 
   public get displayTime() {
-    let days, hours, minutes, seconds, delta = this.delta, time = this.format;
+    let days:any, hours:any, minutes:any, seconds:any, delta:any = this.delta, time:any = this.format;
 
     days = Math.floor(delta / 86400);
     delta -= days * 86400;
