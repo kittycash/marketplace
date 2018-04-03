@@ -6,10 +6,7 @@
                     <img [src]="cat.image" class="img-fluid" alt="{{cat.name}}">
                     <h2 class="pt-3" *ngIf="cat.legendary">Legendary</h2>
                     <h1 *ngIf="cat.box_open">{{cat.name}}</h1>
-                    <!-- <p class="med">{{cat.price_btc}} Satoshi</p> -->
                     <p class="med price">{{cat.price_btc | satoshi}} BTC</p>
-               <!--      <p class="med">{{cat.price_sky}} Droplets</p>
-                    <p class="med">{{cat.price_sky | droplets}} SKY</p> -->
                     <p class="med">For Sale</p>
                     <p class="pt-1"><span translate>Created</span>: 10/3/17</p>
                     <p><span translate>Breed</span>: {{cat.breed}}</p>

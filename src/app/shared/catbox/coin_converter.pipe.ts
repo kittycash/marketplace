@@ -6,16 +6,16 @@ export class SatoshiPipe implements PipeTransform {
 
    	if (isNaN(satoshi)) return NaN;
     if (satoshi === 0) return 0;
-    var str = parseInt(satoshi, 10).toString();
-    var sign = (str.indexOf('-') === 0) ? "-" : "";
-    str = str.replace(/^-/, '');
-    var lengthTester = (/[0-9]{8}/);
-    while (!lengthTester.test(str)) {
-        str = "0" + str;
+    let satoshi_str:string = parseInt(satoshi.toString(), 10).toString();
+    let sign:any = (satoshi_str.indexOf('-') === 0) ? "-" : "";
+    satoshi_str = satoshi_str.replace(/^-/, '');
+    let lengthTester = (/[0-9]{8}/);
+    while (!lengthTester.test(satoshi_str)) {
+        satoshi_str = "0" + satoshi_str;
     }
-    str = str.slice(0, str.length - 8) + "." + str.slice(str.length - 8);
-    if (str[0] === '.') str = '0' + str;
-    return parseFloat(sign + str);
+    satoshi_str = satoshi_str.slice(0, satoshi_str.length - 8) + "." + satoshi_str.slice(satoshi_str.length - 8);
+    if (satoshi_str[0] === '.') satoshi_str = '0' + satoshi_str;
+    return parseFloat(sign + satoshi_str);
   }
 }
 
@@ -24,6 +24,7 @@ export class DropletsPipe implements PipeTransform {
   transform(droplets: number): number {
    	if (isNaN(droplets)) return NaN;
     if (droplets === 0) return 0;
-    return parseFloat(droplets / Math.pow(10, 6));
+    let sky_calc:number = droplets / Math.pow(10, 6);
+    return parseFloat(sky_calc.toString());
   }
 }
