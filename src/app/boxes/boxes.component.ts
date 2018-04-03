@@ -5,6 +5,7 @@ import { KittiesService } from '../shared/kitties.service';
 import { Paging } from '../shared/paging';
 
 import { Entries } from '../shared/models/kitty_api/entries.model';
+import { Entry } from '../shared/models/kitty_api/entry.model';
 
 import { Kitty } from '../shared/models/kitty.model';
 import { FilterOptions } from '../shared/models/filter_options.model';
@@ -39,6 +40,21 @@ export class BoxesComponent implements OnInit {
   ngOnInit() {
     this.kittiesService.currentKitty.subscribe(kitty => this.currentKitty = kitty);
     this.loadBoxes();
+
+    //Check if there is an existing reservation
+    if (localStorage.getItem('reservation_data'))
+    {
+      let reservation_data = JSON.parse(localStorage.getItem('reservation_data'));
+      //Load the kitty
+      this.kittiesService.getKitty({kitty_id: reservation_data.kitty_id})
+      .pipe(finalize(() => { this.isLoading = false; }))
+      .subscribe((res: Entry) => { 
+        let kitty = Object.assign(new Kitty(), res.entry);
+        kitty.reservation_data = reservation_data;
+        this.kittiesService.setCurrentKitty(kitty);
+      });
+    }
+
   }
 
   getPage(page: number) {

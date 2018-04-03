@@ -11,6 +11,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 const routes = {
   explore: () => `/fakekitty/explore/all`,
   boxes: (b: BoxesContext) => `/kitty/entries?open=false&price_btc=${b.btc_filter}&price_sky=${b.sky_filter}&order=${b.order}&offset=${b.page.start_index}&page_size=${b.page.page_size}`,
+  kitty: (k: KittyContext) => `/kitty/entry?kitty_id=${k.kitty_id}`,
   forsale: () => `/fakekitty/forsale/all`,
   forsire: () => `/fakekitty/forsire/all`,
   details: (k: KittyContext) => `/iko/kitty/${k.kitty_id}`,
@@ -78,6 +79,15 @@ export class KittiesService {
         map((res: Response) => res.json()),
         map(body => body),
         catchError(() => of('Error, could not load boxes'))
+      );
+  }
+
+  getKitty(context: KittyContext): Observable<object> {
+    return this.http.get(routes.kitty(context), this.prepareOptions({cache: false}))
+      .pipe(
+        map((res: Response) => res.json()),
+        map(body => body),
+        catchError(() => of('Error, could not load kitty'))
       );
   }
 

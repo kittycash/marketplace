@@ -3,101 +3,111 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" translate *ngIf="!codeError && !doPayment">Confirm Email Address</h5>
-          <h5 class="modal-title" translate *ngIf="codeError && !doPayment">Code error</h5>
-          <h5 class="model-title" translate *ngIf="doPayment">Payment Details</h5>
-          <a class="close-payment float-right" (click)="cancel()" *ngIf="doPayment"><i class="fa fa-times"></i></a>
+          <h5 class="modal-title" translate *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_email'">Confirm Email Address</h5>
+          <h5 class="modal-title" translate *ngIf="codeError">Code error</h5>
+          <div class="payment_details_title" *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_payment'">
+            <a class="close-payment float-right" (click)="cancel()"><i class="fa fa-times"></i></a>
+            <h5 class="model-title" translate>Payment Details</h5>
+          </div>
         </div>
         <div class="modal-body">
 
-          <div *ngIf="doPayment">
-            <div class="row">
-              <div class="col-4">
-               <ngx-qrcode [qrc-element-type]="QRType" [qrc-value] = "paymentAddress"></ngx-qrcode>
-              </div>
-              <div class="col-8">
-                <p class="address-display">{{paymentAddress}}</p>
-              </div>
-            </div>
-            <div class="row price pt-3">
-              <div class="col-12">
-                <div class="form-inline justify-content-center">
-                  <label>Amount</label>
-                  <input class="form-control" type="number" [(ngModel)]="currentKitty.price_btc" disabled="disabled" *ngIf="currentCurrency == 'btc'">
-                  <input class="form-control" type="number" [(ngModel)]="currentKitty.price_btc" disabled="disabled" *ngIf="currentCurrency == 'sky'">
-                  </div>
-              </div>
-            </div>
-            <div class="row price">
-              <div class="col-12">
-                <div class="form-inline justify-content-center">
-                  <label>Coin</label>
-                  <select class="form-control" [(ngModel)]="currentCurrency">
-                    <option value="btc">BTC</option>
-                    <option value="sky">SKY</option>
-                  </select>
-                  </div>
-              </div>
-            </div>
+          <div class="row">
+            <div class="col-4" *ngIf="currentKitty.reservation_data.step == 'confirm_email'">
+               <cat-box [cat]="currentKitty" action="none"></cat-box>
+             </div>
+             <div [ngClass]="{'col-8':currentKitty.reservation_data.step == 'confirm_email', 'col-12': currentKitty.reservation_data.step != 'confirm_email'}">
 
-            <div class="row timer pt-3">
-              <div class="col-12">
-                <p><ngx-countdown *ngIf="timerRemaining" time="{{timerRemaining}}" format="{hh}:{mm}:{ss}"></ngx-countdown></p>
-              </div>
-            </div>
+              <div *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_payment'">
+                <div class="row">
+                  <div class="col-4">
+                   <ngx-qrcode [qrc-element-type]="QRType" [qrc-value] = "paymentAddress"></ngx-qrcode>
+                  </div>
+                  <div class="col-8">
+                    <p class="address-display">{{paymentAddress}}</p>
+                  </div>
+                </div>
+                <div class="row price pt-3">
+                  <div class="col-12">
+                    <div class="form-inline justify-content-center">
+                      <label>Amount</label>
+                      <input class="form-control" type="number" [(ngModel)]="currentKitty.price_btc" disabled="disabled" *ngIf="currentCurrency == 'btc'">
+                      <input class="form-control" type="number" [(ngModel)]="currentKitty.price_btc" disabled="disabled" *ngIf="currentCurrency == 'sky'">
+                      </div>
+                  </div>
+                </div>
+                <div class="row price">
+                  <div class="col-12">
+                    <div class="form-inline justify-content-center">
+                      <label>Coin</label>
+                      <select class="form-control" [(ngModel)]="currentCurrency">
+                        <option value="btc">BTC</option>
+                        <option value="sky">SKY</option>
+                      </select>
+                      </div>
+                  </div>
+                </div>
 
-            <div class="row timer py-3">
-              <div class="col-12 text-center">
-                <button class="btn btn-lg btn-primary" (click)="confirmPayment()">Confirm</button>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="!doConfirm && !codeError && !doPayment">
-            <div class="row">
-              <div class="col-12">
-                <p translate>Enter your email address:</p>
-              </div>
-            </div>
-            <form class="row pt-3" [formGroup]="sendCodeForm" novalidate>
-              <div class="col-12">
-                  <input type="email" class="form-control mx-auto" placeholder="{{'email@example.com' | translate}}" formControlName="email">
-                  <small [hidden]="sendCodeForm.controls.email.valid || sendCodeForm.controls.email.untouched"
-                       class="text-danger" translate>
-                    Invalid Email Address.
-                </small>
-              </div>
-              <div class="col-12">
-                <div class="recaptcha-container mx-auto pt-3">
-                  <re-captcha formControlName="recaptcha" class="mx-auto"></re-captcha>
+                <div class="row timer pt-3">
+                  <div class="col-12">
+                    <p><ngx-countdown *ngIf="timerRemaining" time="{{timerRemaining}}" format="{hh}:{mm}:{ss}"></ngx-countdown></p>
+                  </div>
+                </div>
+
+                <div class="row timer py-3">
+                  <div class="col-12 text-center">
+                    <button class="btn btn-lg btn-primary" (click)="confirmPayment()">Confirm</button>
+                  </div>
                 </div>
               </div>
-            </form>
-          </div>
-          <div *ngIf="doConfirm && !codeError && !doPayment">
-            <div class="row">
-              <div class="col-12">
-                <p translate>Enter your confirmation code:</p>
+              <div *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_email'">
+                <div class="row">
+                  <div class="col-12">
+                    <p translate>Enter your email address:</p>
+                  </div>
+                </div>
+                <form class="row" [formGroup]="sendCodeForm" novalidate>
+                  <div class="col-12">
+                      <input type="email" class="form-control mx-auto" placeholder="{{'email@example.com' | translate}}" formControlName="email">
+                      <small [hidden]="sendCodeForm.controls.email.valid || sendCodeForm.controls.email.untouched"
+                           class="text-danger" translate>
+                        Invalid Email Address.
+                    </small>
+                  </div>
+                  <div class="col-12">
+                    <div class="recaptcha-container mx-auto pt-3">
+                      <re-captcha formControlName="recaptcha" class="mx-auto"></re-captcha>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </div>
-            <form class="row" (ngSubmit)="confirm()" [formGroup]="confirmCodeForm" novalidate>
-              <div class="col-12">
-                <input type="text" class="form-control mx-auto pt-3" placeholder="{{'enter code from email here' | translate}}" formControlName="code">
+              <div *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_code'">
+                <div class="row">
+                  <div class="col-12">
+                    <p translate>Enter your confirmation code:</p>
+                  </div>
+                </div>
+                <form class="row" (ngSubmit)="confirm()" [formGroup]="confirmCodeForm" novalidate>
+                  <div class="col-12">
+                    <input type="text" class="form-control mx-auto pt-3" placeholder="{{'enter code from email here' | translate}}" formControlName="code">
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
-          <div *ngIf="codeError && !doPayment">
-            <div class="row">
-              <div class="col-12">
-                <p translate>Please try again</p>
+              <div *ngIf="codeError && !doPayment">
+                <div class="row">
+                  <div class="col-12">
+                    <p translate>Please try again</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer" *ngIf="!doPayment">
-          <div class="mx-auto" *ngIf="!codeError">
+        <div class="modal-footer">
+          <div class="mx-auto" *ngIf="!codeError && currentKitty.reservation_data.step != 'confirm_payment'">
               <button type="button" class="btn btn-lg btn-secondary" (click)="cancel()" translate>Cancel</button>
-              <button type="button" class="btn btn-lg btn-primary" (click)="confirm()" [disabled]="confirmCodeForm.invalid" *ngIf="doConfirm" translate>Confirm</button>
-              <button type="button" class="btn btn-lg btn-primary" (click)="sendCode()" [disabled]="sendCodeForm.invalid" *ngIf="!doConfirm" translate>Confirm</button>
+              <button type="button" class="btn btn-lg btn-primary" (click)="confirm()" [disabled]="confirmCodeForm.invalid" *ngIf="currentKitty.reservation_data.step == 'confirm_code'" translate>Confirm</button>
+              <button type="button" class="btn btn-lg btn-primary" (click)="sendCode()" [disabled]="sendCodeForm.invalid" *ngIf="currentKitty.reservation_data.step == 'confirm_email'" translate>Confirm</button>
           </div>
           <div class="mx-auto" *ngIf="codeError">
             <button type="button" class="btn btn-lg btn-primary" (click)="resetCodeError()" translate>Okay</button>

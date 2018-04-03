@@ -2,6 +2,7 @@ export class Kitty {
 
   constructor() { 
   	this.image = '/assets/catholder.png';
+    this.reservation_data = {step: 'confirm_email'};
   }
 
   kitty_id: number;
@@ -14,5 +15,5 @@ export class Kitty {
   price_sky: number;
   is_open: boolean;
   details: any;
-
+  reservation_data: any;
 }

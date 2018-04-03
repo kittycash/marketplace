@@ -48,8 +48,17 @@ export class EmailConfirmationComponent implements OnInit {
   ngOnInit() {
     this.kittiesService.currentKitty.subscribe(kitty => {
       this.currentKitty = kitty;
+
+      console.log(this.currentKitty);
       this.createSendCodeForm();
+
+      if (this.currentKitty && this.currentKitty.reservation_data && this.currentKitty.reservation_data.step == 'confirm_code')
+      {
+        this.createConfirmForm(this.currentKitty.reservation_data.email);
+      }
     });
+
+
   }
   
   resetCodeError(){
@@ -57,7 +66,10 @@ export class EmailConfirmationComponent implements OnInit {
   }
 
   confirmPayment(){
-    alert("Need teller working to confirm payment!");
+    this.clearReservation();
+    alert("Clearing local reservation storage.  Need teller working to confirm payment!");
+    this.currentKitty.reservation_data = {step: 'confirm_email'};
+    this.kittiesService.unsetCurrentKitty();
   }
   
   sendCode(){
@@ -67,10 +79,10 @@ export class EmailConfirmationComponent implements OnInit {
         if (success)
         {
           this.createConfirmForm(this.sendCodeForm.value.email);
-          this.doConfirm = true;
-          let currentDate = new Date();
-          this.timerRemaining = new Date(currentDate.getTime() + (30 * 60 * 1000)).getTime();
-          console.log(this.timerRemaining);
+          this.currentKitty.reservation_data.step = "confirm_code"; 
+          this.currentKitty.reservation_data.kitty_id = this.sendCodeForm.value.kitty_id;
+          this.currentKitty.reservation_data.email = this.sendCodeForm.value.email;
+          this.storeReservation();
         }
         else
         {
@@ -81,6 +93,17 @@ export class EmailConfirmationComponent implements OnInit {
 
   cancel() {
     this.kittiesService.unsetCurrentKitty();
+    //Todo - I should hit the verifcation service API with a cancel request here
+    this.clearReservation();
+  }
+
+  clearReservation()
+  {
+    localStorage.removeItem('reservation_data');
+  }
+  storeReservation()
+  {
+    localStorage.setItem('reservation_data', JSON.stringify(this.currentKitty.reservation_data));
   }
 
   confirm() {
@@ -89,7 +112,10 @@ export class EmailConfirmationComponent implements OnInit {
       .subscribe((success: boolean) => { 
         if (success)
         {
-          this.doPayment = true;
+          let currentDate = new Date();
+          this.timerRemaining = new Date(currentDate.getTime() + (30 * 60 * 1000)).getTime();
+          this.currentKitty.reservation_data.step = "confirm_payment";
+          this.storeReservation();
         }     
         else
         {

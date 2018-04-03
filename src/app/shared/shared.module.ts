@@ -10,6 +10,8 @@ import { RECAPTCHA_SETTINGS, RecaptchaSettings, RecaptchaModule } from 'ng-recap
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 import { CountdownComponent } from './email_confirmation/countdown.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { SatoshiPipe } from './catbox/coin_converter.pipe';
+import { DropletsPipe } from './catbox/coin_converter.pipe';
 
 @NgModule({
   imports: [
@@ -31,12 +33,16 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     LoaderComponent,
     CatBoxComponent,
     EmailConfirmationComponent,
-    CountdownComponent
+    CountdownComponent,
+    SatoshiPipe,
+    DropletsPipe
   ],
   exports: [
     LoaderComponent,
     CatBoxComponent,
-    EmailConfirmationComponent
+    EmailConfirmationComponent,
+    SatoshiPipe,
+    DropletsPipe
   ]
 })
 export class SharedModule { }
