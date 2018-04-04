@@ -44,7 +44,7 @@ gulp.task('package-json', () => {
   var pkgjson = require("./package.json");
   //Just take what we need from package.json
   var libpkg = {
-    name: pkgjson.name,
+    name: pkgjson.name + "-lib",
     version: pkgjson.version,
     dependencies: pkgjson.dependencies,
     main: 'app/marketplace_app.module.js'
