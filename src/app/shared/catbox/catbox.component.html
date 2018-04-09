@@ -3,7 +3,8 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-6 offset-3">
-                    <img [src]="cat.image" class="img-fluid" alt="{{cat.name}}">
+                    <img [src]="boxImage(cat.kitty_id)" class="img-fluid" alt="???" *ngIf="!cat.box_open">
+                    <img [src]="cat.image" class="img-fluid" alt="{{cat.name}}" *ngIf="cat.box_open">
                     <h2 class="pt-3" *ngIf="cat.legendary">Legendary</h2>
                     <h1 *ngIf="cat.box_open">{{cat.name}}</h1>
                     <p class="med price">{{cat.price_btc | satoshi}} BTC</p>
@@ -29,7 +30,17 @@
                         <button class="btn btn-block btn-primary" (click)="breed()" translate>Breed with this cat</button>
                     </div>
                     <div *ngSwitchCase="'box'">
-                        <button class="btn btn-primary" (click)="reserve(cat)" translate>Reserve</button>
+                        <button class="btn btn-primary" (click)="reserve(cat)" translate [disabled]="cat.reservation != 'NONE'" [ngSwitch]="cat.reservation">
+                            <span *ngSwitchCase="'NONE'">
+                                Reserve
+                            </span>
+                            <span *ngSwitchCase="'reserved'">
+                                Reserved
+                            </span>
+                            <span *ngSwitchCase="'delivered'">
+                                Delivered
+                            </span>
+                        </button>
                     </div>
                     <div *ngSwitchCase="'explore'">
                         <!-- Nothing to see -->

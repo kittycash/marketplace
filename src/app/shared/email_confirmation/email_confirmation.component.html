@@ -21,18 +21,18 @@
               <div *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_payment'">
                 <div class="row">
                   <div class="col-4">
-                   <ngx-qrcode [qrc-element-type]="QRType" [qrc-value] = "paymentAddress"></ngx-qrcode>
+                   <ngx-qrcode [qrc-element-type]="QRType" [qrc-value] = "currentKitty.reservation_data.reservation.deposit_address"></ngx-qrcode>
                   </div>
                   <div class="col-8">
-                    <p class="address-display">{{paymentAddress}}</p>
+                    <p class="address-display">{{currentKitty.reservation_data.reservation.deposit_address}}</p>
                   </div>
                 </div>
                 <div class="row price pt-3">
                   <div class="col-12">
                     <div class="form-inline justify-content-center">
                       <label>Amount</label>
-                      <input class="form-control" type="number" [(ngModel)]="currentKitty.price_btc" disabled="disabled" *ngIf="currentCurrency == 'btc'">
-                      <input class="form-control" type="number" [(ngModel)]="currentKitty.price_btc" disabled="disabled" *ngIf="currentCurrency == 'sky'">
+                      <input class="form-control" type="number" value="{{currentKitty.price_btc | satoshi}}" disabled="disabled" *ngIf="currentKitty.reservation_data.coin_type == 'btc'">
+                      <input class="form-control" type="number" value="{{currentKitty.price_sky | droplets}}" disabled="disabled" *ngIf="currentKitty.reservation_data.coin_type == 'sky'">
                       </div>
                   </div>
                 </div>
@@ -40,17 +40,14 @@
                   <div class="col-12">
                     <div class="form-inline justify-content-center">
                       <label>Coin</label>
-                      <select class="form-control" [(ngModel)]="currentCurrency">
-                        <option value="btc">BTC</option>
-                        <option value="sky">SKY</option>
-                      </select>
+                      <input class="form-control coin-input" type="text" value="{{currentKitty.reservation_data.coin_type}}" disabled="disabled">
                       </div>
                   </div>
                 </div>
 
                 <div class="row timer pt-3">
                   <div class="col-12">
-                    <p><ngx-countdown *ngIf="timerRemaining" time="{{timerRemaining}}" format="{hh}:{mm}:{ss}"></ngx-countdown></p>
+                    <p><ngx-countdown *ngIf="currentKitty.reservation_data.reservation.deadline" time="{{currentKitty.reservation_data.reservation.deadline / 1000}}" format="{hh}:{mm}:{ss}"></ngx-countdown></p>
                   </div>
                 </div>
 
@@ -77,6 +74,15 @@
                   <div class="col-12">
                     <div class="recaptcha-container mx-auto pt-3">
                       <re-captcha formControlName="recaptcha" class="mx-auto"></re-captcha>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="price">
+                     <label>Payment Coin</label>
+                     <select class="form-control" formControlName="coin_type">
+                      <option value="BTC">BTC</option>
+                      <option value="SKY">SKY</option>
+                     </select>
                     </div>
                   </div>
                 </form>

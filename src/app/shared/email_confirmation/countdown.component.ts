@@ -42,11 +42,17 @@ export class CountdownComponent implements OnDestroy {
     seconds = delta % 60;
 
     time = time.replace('{dd}', days);
-    time = time.replace('{hh}', hours);
-    time = time.replace('{mm}', minutes);
-    time = time.replace('{ss}', seconds);
+    time = time.replace('{hh}', this.pad(hours, 2));
+    time = time.replace('{mm}', this.pad(minutes, 2));
+    time = time.replace('{ss}', this.pad(seconds, 2));
 
     return time;
+  }
+
+  private pad(num, size) {
+    var s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
   }
 
   constructor(private _changeDetector: ChangeDetectorRef) { }

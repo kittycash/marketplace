@@ -51,10 +51,11 @@ export class CatBoxComponent implements OnInit {
     }
   }
   reserve(cat: object) {
-    
-
      this.kittiesService.setCurrentKitty(cat);
+  }
 
+  boxImage(kitty_id:number) {
+    return "assets/fake_cdn/box-" + ((kitty_id % 5) + 1) + ".png";
   }
 
   removeDetails() {

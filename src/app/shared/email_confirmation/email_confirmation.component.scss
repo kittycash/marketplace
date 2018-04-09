@@ -92,7 +92,16 @@ input {
     text-align: center;
     margin-top: 7px;
 }
-
+.price .coin-input {
+	width: 100px !important;
+	border: none;
+    border-bottom-color: lightgray !important;
+    border-bottom-style: solid !important;
+    border-bottom-width: 2px !important;
+    font-size: 20px !important;
+    text-align: center !important;
+    margin-left: 35px;
+}
 .price input[type="number"]
 {
 	width: 100px;

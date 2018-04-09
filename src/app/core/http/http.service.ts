@@ -40,10 +40,15 @@ export class HttpService extends Http {
 
     if (typeof request === 'string') {
       url = request;
-      request = environment.serverUrl + url;
+
+      if (!/^(f|ht)tps?:\/\//i.test(url)) {
+        request = environment.serverUrl + url;
+      }
     } else {
       url = request.url;
-      request.url = environment.serverUrl + url;
+      if (!/^(f|ht)tps?:\/\//i.test(url)) {
+        request.url = environment.serverUrl + url;
+      }
     }
     
     if (!requestOptions.cache) {

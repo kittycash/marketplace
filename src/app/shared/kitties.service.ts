@@ -16,7 +16,8 @@ const routes = {
   forsire: () => `/fakekitty/forsire/all`,
   details: (k: KittyContext) => `/iko/kitty/${k.kitty_id}`,
   request_code: () => `/verification/request_code`,
-  verify_code: () => `/verification/verify_code`
+  verify_code: () => `/verification/verify_code`,
+  reserve: () => `/teller/reserve`
 };
 
 export interface BoxesContext {
@@ -48,6 +49,13 @@ export interface VerifyCodeContext {
   code: string;
 }
 
+export interface ReservationContext {
+  user_address: string;
+  kitty_id: string;
+  coin_type: string;
+  verification_code: string;
+}
+
 @Injectable()
 export class KittiesService {
 
@@ -69,7 +77,9 @@ export class KittiesService {
       .pipe(
         map((res: Response) => res.json()),
         map(body => body.data),
-        catchError(() => of('Error, could not load boxes'))
+        catchError(() => {
+          return this.displayError('Error, could not load boxes')
+        })
       );
   }
 
@@ -78,7 +88,9 @@ export class KittiesService {
       .pipe(
         map((res: Response) => res.json()),
         map(body => body),
-        catchError(() => of('Error, could not load boxes'))
+        catchError(() => {
+          return this.displayError('Error, could not load boxes')
+        })
       );
   }
 
@@ -87,7 +99,9 @@ export class KittiesService {
       .pipe(
         map((res: Response) => res.json()),
         map(body => body),
-        catchError(() => of('Error, could not load kitty'))
+        catchError(() => {
+          return this.displayError('Error, could not load kitty')
+        })
       );
   }
 
@@ -96,7 +110,9 @@ export class KittiesService {
       .pipe(
         map((res: Response) => res.json()),
         map(body => body.data),
-        catchError(() => of('Error, could not load kittens'))
+        catchError(() => {
+          return this.displayError('Error, could not load kittens')
+        })
       );
   }
 
@@ -105,7 +121,9 @@ export class KittiesService {
       .pipe(
         map((res: Response) => res.json()),
         map(body => body.data),
-        catchError(() => of('Error, could not load kittens'))
+        catchError(() => {
+          return this.displayError('Error, could not load kittens')
+        })
       );
   }
 
@@ -114,7 +132,9 @@ export class KittiesService {
       .pipe(
         map((res: Response) => res.json()),
         map(body => body.data),
-        catchError(() => of('Error, could not load your kitty details'))
+        catchError(() => {
+          return this.displayError('Error, could not load your kitty details')
+        })
       );
   } 
 
@@ -153,6 +173,23 @@ export class KittiesService {
         catchError(() => of(false))
       );
   } 
+
+  reserve(context: ReservationContext): Observable<any> {
+    return this.http.post(routes.reserve(), context, this.prepareOptions({cache: false}))
+      .pipe(
+        map((res: any) => res.json()),
+        catchError((error: Response) => { 
+          return this.displayError(error._body);
+      })
+      );
+  } 
+
+
+  private displayError(error:string)
+  {
+    alert("API Error: " + error);
+    return [];
+  }
 
   private prepareOptions(data?:any) {
 

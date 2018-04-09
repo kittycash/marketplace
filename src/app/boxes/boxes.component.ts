@@ -20,7 +20,7 @@ export class BoxesComponent implements OnInit {
   currentKitty: any;
   boxes: Array<Kitty>;
   page: number = 1;
-  per_page: number = 8;
+  per_page: number = 9;
   count: number = 0;
   isLoading: boolean;
 

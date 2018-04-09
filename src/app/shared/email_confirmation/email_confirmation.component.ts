@@ -9,6 +9,9 @@ import { AuthenticationService } from '../../core/authentication/authentication.
 
 import { CountdownComponent } from './countdown.component';
 
+import { Kitty } from '../models/kitty.model';
+import { Reservation } from '../models/reservation.model';
+
 @Component({
   selector: 'email-confirmation',
   templateUrl: './email_confirmation.component.html',
@@ -27,11 +30,8 @@ export class EmailConfirmationComponent implements OnInit {
   doPayment: boolean = false;
   currentKitty: any;
   codeError: boolean = false;
-  timerRemaining: number;
-  currentCurrency: string = 'btc';
   QRType: string = 'img';
-  paymentAddress: string = 'DdzFFzCqrhsykj9xNk4UjMABrJaitDmCM8MUbk8xJy6zmANigjB9HunWDjnPZWrjKYdPeHF6a3oiMpvdBP2xR6idZ5zqG4KkxVwvouoz';
-
+  
   constructor(private router: Router,
   			      private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
@@ -49,7 +49,6 @@ export class EmailConfirmationComponent implements OnInit {
     this.kittiesService.currentKitty.subscribe(kitty => {
       this.currentKitty = kitty;
 
-      console.log(this.currentKitty);
       this.createSendCodeForm();
 
       if (this.currentKitty && this.currentKitty.reservation_data && this.currentKitty.reservation_data.step == 'confirm_code')
@@ -57,8 +56,6 @@ export class EmailConfirmationComponent implements OnInit {
         this.createConfirmForm(this.currentKitty.reservation_data.email);
       }
     });
-
-
   }
   
   resetCodeError(){
@@ -66,10 +63,22 @@ export class EmailConfirmationComponent implements OnInit {
   }
 
   confirmPayment(){
-    this.clearReservation();
-    alert("Clearing local reservation storage.  Need teller working to confirm payment!");
-    this.currentKitty.reservation_data = {step: 'confirm_email'};
-    this.kittiesService.unsetCurrentKitty();
+    this.kittiesService.getKitty({kitty_id: this.currentKitty.reservation_data.kitty_id})
+      .pipe(finalize(() => { this.isLoading = false; }))
+      .subscribe((res: Entry) => { 
+        let kitty = Object.assign(new Kitty(), res.entry);
+        if (kitty && kitty.reservation && kitty.reservation == "delivered")
+        {
+          alert("Kitty reserved!  Do we want to animate into the wallet or something cool?");
+          this.clearReservation();
+          this.currentKitty.reservation_data = {step: 'confirm_email'};
+          this.kittiesService.unsetCurrentKitty();
+        }
+        else
+        {
+          alert("Payment has not been received.  Please try again in a few minutes.");
+        }
+      });
   }
   
   sendCode(){
@@ -79,6 +88,7 @@ export class EmailConfirmationComponent implements OnInit {
         if (success)
         {
           this.createConfirmForm(this.sendCodeForm.value.email);
+          this.currentKitty.reservation_data.coin_type = this.sendCodeForm.value.coin_type;
           this.currentKitty.reservation_data.step = "confirm_code"; 
           this.currentKitty.reservation_data.kitty_id = this.sendCodeForm.value.kitty_id;
           this.currentKitty.reservation_data.email = this.sendCodeForm.value.email;
@@ -112,10 +122,9 @@ export class EmailConfirmationComponent implements OnInit {
       .subscribe((success: boolean) => { 
         if (success)
         {
-          let currentDate = new Date();
-          this.timerRemaining = new Date(currentDate.getTime() + (30 * 60 * 1000)).getTime();
-          this.currentKitty.reservation_data.step = "confirm_payment";
+          this.currentKitty.reservation_data.code = this.confirmCodeForm.value.code;
           this.storeReservation();
+          this.reserve();
         }     
         else
         {
@@ -124,12 +133,33 @@ export class EmailConfirmationComponent implements OnInit {
     });
   }
 
+  reserve() {
+    this.kittiesService.reserve({
+      user_address: "1MDVejCgkinohyEPqpXUsZsvfG96vAtqT2", 
+      kitty_id: this.currentKitty.reservation_data.kitty_id, 
+      coin_type: this.currentKitty.reservation_data.coin_type, 
+      verification_code: this.currentKitty.reservation_data.code
+    })
+    .pipe(finalize(() => { this.isLoading = false; }))
+      .subscribe((res: any) => { 
+        let reservation = Object.assign(new Reservation(), res); 
+
+        if (reservation)
+        {
+          this.currentKitty.reservation_data.reservation = reservation;
+          this.currentKitty.reservation_data.step = "confirm_payment";
+          this.storeReservation();
+        }
+       
+      });
+  }
   private createSendCodeForm() {
 
   	this.sendCodeForm = this.formBuilder.group({
         email: ['', Validators.required],
         kitty_id: [this.currentKitty.kitty_id, Validators.required],
-        recaptcha: ['', Validators.required]
+        recaptcha: ['', Validators.required],
+        coin_type: ['', Validators.required]
     });
   }
 
