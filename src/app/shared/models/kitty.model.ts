@@ -18,5 +18,6 @@ export class Kitty {
   details: any;
   legendary: boolean;
   box_open: boolean;
+  reservation: string;
   reservation_data: any;
 }

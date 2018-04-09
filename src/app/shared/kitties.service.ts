@@ -178,14 +178,14 @@ export class KittiesService {
     return this.http.post(routes.reserve(), context, this.prepareOptions({cache: false}))
       .pipe(
         map((res: any) => res.json()),
-        catchError((error: Response) => { 
+        catchError((error: any) => { 
           return this.displayError(error._body);
       })
       );
   } 
 
 
-  private displayError(error:string)
+  private displayError(error:any) :any
   {
     alert("API Error: " + error);
     return [];

@@ -49,7 +49,7 @@ export class CountdownComponent implements OnDestroy {
     return time;
   }
 
-  private pad(num, size) {
+  private pad(num:any, size:any) {
     var s = num+"";
     while (s.length < size) s = "0" + s;
     return s;

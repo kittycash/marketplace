@@ -11,7 +11,7 @@ import { CountdownComponent } from './countdown.component';
 
 import { Kitty } from '../models/kitty.model';
 import { Reservation } from '../models/reservation.model';
-
+import { Entry } from '../models/kitty_api/entry.model';
 @Component({
   selector: 'email-confirmation',
   templateUrl: './email_confirmation.component.html',
