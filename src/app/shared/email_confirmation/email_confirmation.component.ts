@@ -43,7 +43,9 @@ export class EmailConfirmationComponent implements OnInit {
   	this.formComponents = Array(this.codeLength).fill(0).map((x,i)=>i);
   }
 
-  
+  boxImage(kitty_id:number) {
+    return "assets/fake_cdn/box-" + ((kitty_id % 5) + 1) + ".png";
+  }
 
   ngOnInit() {
     this.kittiesService.currentKitty.subscribe(kitty => {

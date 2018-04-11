@@ -185,9 +185,17 @@ export class KittiesService {
   } 
 
 
-  private displayError(error:any) :any
+  private displayError(error:any) : any
   {
-    alert("API Error: " + error);
+    //Fire the error to the tabs controller
+    let event = new CustomEvent('showGlobalError', { cancelable: true, detail: {message: error} }); 
+    //Check the see if any event handler cancels the event
+    if (document.dispatchEvent(event))
+    {
+      //The tabs listener isn't there.  Send it out from this app;
+      alert("API Error: " + error);
+    }
+    
     return [];
   }
 

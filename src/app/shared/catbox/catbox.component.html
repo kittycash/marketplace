@@ -30,8 +30,8 @@
                         <button class="btn btn-block btn-primary" (click)="breed()" translate>Breed with this cat</button>
                     </div>
                     <div *ngSwitchCase="'box'">
-                        <button class="btn btn-primary" (click)="reserve(cat)" translate [disabled]="cat.reservation != 'NONE'" [ngSwitch]="cat.reservation">
-                            <span *ngSwitchCase="'NONE'">
+                        <button class="btn btn-primary" (click)="reserve(cat)" translate [disabled]="cat.reservation != 'available'" [ngSwitch]="cat.reservation">
+                            <span *ngSwitchCase="'available'">
                                 Reserve
                             </span>
                             <span *ngSwitchCase="'reserved'">

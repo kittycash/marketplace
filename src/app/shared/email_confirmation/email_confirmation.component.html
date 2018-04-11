@@ -13,11 +13,71 @@
         <div class="modal-body">
 
           <div class="row">
-            <div class="col-4" *ngIf="currentKitty.reservation_data.step == 'confirm_email'">
-               <cat-box [cat]="currentKitty" action="none"></cat-box>
+            <div class="col-3 offset-3" *ngIf="currentKitty.reservation_data.step == 'confirm_email'">
+                <img [src]="boxImage(currentKitty.kitty_id)" class="img-fluid" alt="???" *ngIf="!currentKitty.box_open">
+                <img [src]="currentKitty.image" class="img-fluid" alt="{{currentKitty.name}}" *ngIf="currentKitty.box_open">
+            </div>
+            <div class="col-6 reservation-kitty-details">
+                <h2 class="pt-1" *ngIf="currentKitty.legendary">Legendary</h2>
+                <h1 *ngIf="currentKitty.box_open">{{currentKitty.name}}</h1>
+                <div class="pt-3" *ngIf="!currentKitty.box_open || !currentKitty.legendary"></div>
+                <p class="med price">{{currentKitty.price_btc | satoshi}} BTC</p>
+                <p class="med">For Sale</p>
+                <p class="pt-1"><span translate>Created</span>: 10/3/17</p>
+                <p><span translate>Breed</span>: {{currentKitty.breed}}</p>
              </div>
-             <div [ngClass]="{'col-8':currentKitty.reservation_data.step == 'confirm_email', 'col-12': currentKitty.reservation_data.step != 'confirm_email'}">
+           </div>
+           <div class="row mt-2">
+             <div class="col-12 text-center">
+              <!-- Confirm Email Screen -->
+              <div *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_email'">
+                <form class="row" [formGroup]="sendCodeForm" novalidate>
+                   <div class="col-12">
+                    <div class="price">
+                     <select class="form-control" formControlName="coin_type">
+                       <option value="" disabled selected>Select</option>
+                      <option value="BTC">BTC</option>
+                      <option value="SKY">SKY</option>
+                     </select>
+                      <label class="text-center">cryptocurrency</label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <p translate>Enter your email address:</p>
+                  </div>
+                  <div class="col-12">
+                      <input type="email" class="form-control mx-auto" placeholder="{{'email@example.com' | translate}}" formControlName="email">
+                      <small [hidden]="sendCodeForm.controls.email.valid || sendCodeForm.controls.email.untouched"
+                           class="text-danger" translate>
+                        Invalid Email Address.
+                    </small>
+                  </div>
+                  <div class="col-12">
+                    <div class="recaptcha-container mx-auto pt-3">
+                      <re-captcha formControlName="recaptcha" class="mx-auto"></re-captcha>
+                    </div>
+                  </div>
+                 
+                </form>
+              </div>
+              <!-- End Confirm Email Screen -->
 
+              <!-- Confirm Code Screen -->
+              <div *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_code'">
+                <div class="row">
+                  <div class="col-12">
+                    <p translate>Enter your confirmation code:</p>
+                  </div>
+                </div>
+                <form class="row" (ngSubmit)="confirm()" [formGroup]="confirmCodeForm" novalidate>
+                  <div class="col-12">
+                    <input type="text" class="form-control mx-auto pt-3" placeholder="{{'enter code from email here' | translate}}" formControlName="code">
+                  </div>
+                </form>
+              </div>
+              <!-- End Confirm Code Screen -->
+
+               <!-- Confirm Payment Screen -->
               <div *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_payment'">
                 <div class="row">
                   <div class="col-4">
@@ -57,48 +117,9 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_email'">
-                <div class="row">
-                  <div class="col-12">
-                    <p translate>Enter your email address:</p>
-                  </div>
-                </div>
-                <form class="row" [formGroup]="sendCodeForm" novalidate>
-                  <div class="col-12">
-                      <input type="email" class="form-control mx-auto" placeholder="{{'email@example.com' | translate}}" formControlName="email">
-                      <small [hidden]="sendCodeForm.controls.email.valid || sendCodeForm.controls.email.untouched"
-                           class="text-danger" translate>
-                        Invalid Email Address.
-                    </small>
-                  </div>
-                  <div class="col-12">
-                    <div class="recaptcha-container mx-auto pt-3">
-                      <re-captcha formControlName="recaptcha" class="mx-auto"></re-captcha>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="price">
-                     <label>Payment Coin</label>
-                     <select class="form-control" formControlName="coin_type">
-                      <option value="BTC">BTC</option>
-                      <option value="SKY">SKY</option>
-                     </select>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div *ngIf="!codeError && currentKitty.reservation_data.step == 'confirm_code'">
-                <div class="row">
-                  <div class="col-12">
-                    <p translate>Enter your confirmation code:</p>
-                  </div>
-                </div>
-                <form class="row" (ngSubmit)="confirm()" [formGroup]="confirmCodeForm" novalidate>
-                  <div class="col-12">
-                    <input type="text" class="form-control mx-auto pt-3" placeholder="{{'enter code from email here' | translate}}" formControlName="code">
-                  </div>
-                </form>
-              </div>
+              <!-- End Confirm Payment Screen -->
+
+              <!-- Code Error Dialog -->
               <div *ngIf="codeError && !doPayment">
                 <div class="row">
                   <div class="col-12">
@@ -106,6 +127,7 @@
                   </div>
                 </div>
               </div>
+              <!-- End Code Error Dialog -->
             </div>
           </div>
         </div>
