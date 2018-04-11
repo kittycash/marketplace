@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
 import { KittiesService } from '../shared/kitties.service';
@@ -35,6 +35,12 @@ export class BoxesComponent implements OnInit {
   constructor(private kittiesService: KittiesService,
               private paging: Paging) { 
 
+  }
+  @HostListener('document:refreshButtonClick', ['$event'])
+    onRefresh(ev:any) {
+      ev.preventDefault();
+      //Do refresh
+      this.loadBoxes();
   }
 
   ngOnInit() {
