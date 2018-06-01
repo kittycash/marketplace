@@ -40,7 +40,7 @@ gulp.task('copy-translations', () => {
 	    .pipe(gulp.dest('./build/translations'));
 });
 
-gulp.task('package-json', () => {
+gulp.task('package-json', (cb) => {
   var pkgjson = require("./package.json");
   //Just take what we need from package.json
   var libpkg = {
@@ -50,5 +50,5 @@ gulp.task('package-json', () => {
     main: 'app/marketplace_app.module.js'
   }
    fs.writeFileSync('./lib/package.json', JSON.stringify(libpkg, null, 2));
-   return;
+   return cb();
 });

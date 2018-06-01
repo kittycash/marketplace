@@ -17,6 +17,7 @@ const routes = {
   details: (k: KittyContext) => `/iko/kitty/${k.kitty_id}`,
   request_code: () => `/verification/request_code`,
   verify_code: () => `/verification/verify_code`,
+  cancel_code: () => '/verification/cancel_code/',
   reserve: () => `/teller/reserve`
 };
 
@@ -173,6 +174,8 @@ export class KittiesService {
         catchError(() => of(false))
       );
   } 
+
+
 
   reserve(context: ReservationContext): Observable<any> {
     return this.http.post(routes.reserve(), context, this.prepareOptions({cache: false}))

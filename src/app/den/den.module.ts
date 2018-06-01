@@ -10,7 +10,6 @@ import { DenRoutingModule } from './den-routing.module';
 import { DenComponent } from './den.component';
 import { KittiesService } from '../shared/kitties.service';
 import { NgxPaginationModule } from 'ngx-pagination'; 
-import { Ng2OrderModule } from 'ng2-order-pipe'; 
 
 @NgModule({
   imports: [
@@ -20,8 +19,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     CoreModule,
     SharedModule,
     DenRoutingModule,
-    NgxPaginationModule,
-    Ng2OrderModule
+    NgxPaginationModule
   ],
   declarations: [
     DenComponent

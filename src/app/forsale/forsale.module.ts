@@ -10,7 +10,6 @@ import { ForSaleRoutingModule } from './forsale-routing.module';
 import { ForSaleComponent } from './forsale.component';
 import { KittiesService } from '../shared/kitties.service';
 import { NgxPaginationModule } from 'ngx-pagination'; 
-import { Ng2OrderModule } from 'ng2-order-pipe'; 
 
 @NgModule({
   imports: [
@@ -20,8 +19,7 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     CoreModule,
     SharedModule,
     ForSaleRoutingModule,
-    NgxPaginationModule,
-    Ng2OrderModule
+    NgxPaginationModule
   ],
   declarations: [
     ForSaleComponent
