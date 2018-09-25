@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row mb-4">
+    	<div class="col-2">
+    		<button class="btn btn-outline-primary" *ngIf="kittyHistory.length > 1" (click)="popHistory()"><i class="fa fa-arrow-left"></i></button>
+    	</div>
+    	<div class="col-2 offset-8">
+    		<button class="btn btn-outline-primary float-right" (click)="doClose()"><i class="fa fa-times"></i></button>
+    	</div>
+    </div>
+
+    <div class="row no-gutters" *ngIf="currentKitty">
+    	<div class="col-3 text-center">
+    		<h1>{{currentKitty.info.name}}</h1>
+
+    		<div class="orange-box mb-2">
+    			<p>Born: {{currentKitty.info.created / 1000000 | date}}</p>
+    			<p>Breed: {{currentKitty.info.breed.breed}}</p>
+    		</div>
+
+    		<div class="orange-box">
+    			<h2>Traits</h2>
+    			<div class="row no-gutters">
+    				<div class="col-4" *ngFor="let trait of currentKitty.traits">
+    					<div style="padding: 5px;">
+	    					<img class="img-fluid" src="{{traitImage(trait.icon)}}" alt="{{trait.displayName}}" title="{{trait.displayName}}">
+	    				</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="col-6">
+    		<div class="kitty-container">
+    			<img class="img-fluid" src="{{kittyImage(currentKitty.info.id)}}">
+    		</div>
+    	</div>
+    	<div class="col-3 text-center">
+    		<div class="orange-box mb-2">
+    			<h2>Parents</h2>
+    			<div class="row">
+    				<div class="col-6">
+    					<div (click)="getKitty(0)" style="cursor: pointer;">
+    						<img class="img-fluid" src="{{kittyImage(0)}}">
+    						<p class="p_black">Kitty #0</p>
+    					</div>
+    				</div>
+    				<div class="col-6">
+    					<div (click)="getKitty(1)" style="cursor: pointer;">
+    						<img class="img-fluid" src="{{kittyImage(1)}}">
+    						<p class="p_black">Kitty #1</p>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    
+    		<div class="orange-box mb-2">
+    			<h2>Children</h2>
+    			<div class="row">
+    				<div class="col-6">
+    					<div (click)="getKitty(2)" style="cursor: pointer;">
+    						<img class="img-fluid" src="{{kittyImage(2)}}">
+    						<p class="p_black">Kitty #2</p>
+    					</div>
+    				</div>
+    				<div class="col-6">
+    					<div (click)="getKitty(3)" style="cursor: pointer;">
+    						<img class="img-fluid" src="{{kittyImage(3)}}">
+    						<p class="p_black">Kitty #3</p>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+
+    </div>
+</div>

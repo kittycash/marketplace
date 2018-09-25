@@ -3,14 +3,11 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-6 offset-3">
-                    <img [src]="boxImage(cat.kitty_id)" class="img-fluid" alt="???" *ngIf="!cat.box_open">
-                    <img [src]="cat.image" class="img-fluid" alt="{{cat.name}}" *ngIf="cat.box_open">
-                    <h2 class="pt-3" *ngIf="cat.legendary">Legendary</h2>
-                    <h1 *ngIf="cat.box_open">{{cat.name}}</h1>
-                    <p class="med price">{{cat.price_btc | satoshi}} BTC</p>
-                    <p class="med">For Sale</p>
-                    <p class="pt-1"><span translate>Created</span>: 10/3/17</p>
-                    <p><span translate>Breed</span>: {{cat.breed}}</p>
+                    <img [src]="kittyImage(cat.info.id)" class="img-fluid" alt="{{cat.info.name}}">
+                    <h2 class="pt-3" *ngIf="cat.info.legendary">Legendary</h2>
+                    <h1>{{cat.info.name}}</h1>
+                    <p class="pt-1"><span translate>Created</span>: {{cat.info.created / 1000000 | date}}</p>
+                    <p><span translate>Breed</span>: {{cat.info.breed.breed}}</p>
                 </div>
             </div>
             <div class="row pt-3">

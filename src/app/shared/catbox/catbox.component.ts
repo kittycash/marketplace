@@ -5,6 +5,7 @@ import { I18nService } from '../../core/i18n.service';
 import { AuthenticationService } from '../../core/authentication/authentication.service';
 import { KittiesService } from '../kitties.service';
 import { Kitty } from '../models/kitty.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'cat-box',
@@ -54,8 +55,8 @@ export class CatBoxComponent implements OnInit {
      this.kittiesService.setCurrentKitty(cat);
   }
 
-  boxImage(kitty_id:number) {
-    return "assets/fake_cdn/box-" + ((kitty_id % 5) + 1) + ".png";
+  kittyImage(kitty_id:number) {
+    return environment.serverUrl + "/image/" + kitty_id;
   }
 
   removeDetails() {

@@ -2,7 +2,7 @@
 export const environment = {
   production: true,
   version: 'production',
-  serverUrl: 'https://staging-api.kittycatscatarat.club/api',
+  serverUrl: 'https://staging-api.kittycash.io/v1',
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',

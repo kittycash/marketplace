@@ -7,7 +7,9 @@ import { SharedModule } from '../shared';
 import { ExploreRoutingModule } from './explore-routing.module';
 import { ExploreComponent } from './explore.component';
 import { KittiesService } from '../shared/kitties.service';
+import { KittyDetailComponent } from '../shared/kitty_detail/kitty_detail.component';
 import { NgxPaginationModule } from 'ngx-pagination'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -16,13 +18,18 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CoreModule,
     SharedModule,
     ExploreRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule
   ],
   declarations: [
-    ExploreComponent
+    ExploreComponent,
+    KittyDetailComponent
   ],
   providers: [
     KittiesService
+  ],
+  entryComponents: [
+    KittyDetailComponent
   ]
 })
 export class ExploreModule { }

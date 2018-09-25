@@ -1,9 +1,48 @@
-.logo {
-  width: 100px;
+@import "src/theme/theme-variables";
+@import "bootstrap/scss/mixins/_breakpoints";
+
+
+.kitty-filter {
+	background-color: $kittyred;
+	border-top-right-radius: 25px;
 }
 
-q {
-  font-style: italic;
-  font-size: 1.2rem;
-  quotes: "« " " »";
+.kitty-filter h2 {
+	font-size: 24px;
+	text-transform: uppercase;
+	font-weight: 600;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.kitty-filter-header span {
+	color: white;
+	font-size: 20px;	
+	vertical-align: middle;
+	text-transform: capitalize;
+}
+
+.kitty-filter-content .inner {
+	background-color: white;
+	border-radius: 5px;
+	min-height: 150px;
+	max-height: 300px;
+	overflow: scroll;
+	border: 2px solid rgb(254, 201, 198);
+	padding: 10px;
+}
+
+.trait.selected {
+	background-color: $kittyred;
+    border-radius: 50%;
+}
+
+.kitty-container {
+	background-color: white;
+	border-radius: 25px;
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }

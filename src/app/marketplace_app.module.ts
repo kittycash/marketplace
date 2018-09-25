@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { environment } from '../environments/environment';
 import { CoreModule } from './core';
 import { SharedModule } from './shared';
@@ -18,6 +18,7 @@ import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
 import { MarketplaceAppComponent } from './marketplace_app.component';
 import { MarketplaceAppRoutingModule } from './marketplace_app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -36,7 +37,9 @@ import { MarketplaceAppRoutingModule } from './marketplace_app-routing.module';
     DenModule,
     LoginModule,
     RegisterModule,
-    MarketplaceAppRoutingModule
+    MarketplaceAppRoutingModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     MarketplaceAppComponent

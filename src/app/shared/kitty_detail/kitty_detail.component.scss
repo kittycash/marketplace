@@ -1,0 +1,36 @@
+@import "src/theme/theme-variables";
+@import "bootstrap/scss/mixins/_breakpoints";
+
+h1 {
+	color: $kittyred;
+}
+.orange-box {
+	background-color: rgb(252, 233, 232);
+	color: $kittyred;
+	padding: 20px;
+	border-radius: 25px;
+}
+
+.orange-box p {
+	font-size: 12px;
+	margin-bottom: 0;
+}
+
+.orange-box h2 {
+	font-size: 22px;
+}
+
+.p_black {
+	color: black;
+}
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
