@@ -5,6 +5,11 @@
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
+.cdk-overlay-pane {
+    border: 4px solid $kittyred !important;
+    border-radius: 25px;
+}
+
 html {
 	height: 100%;
 	font-family: 'Montserrat', sans-serif;
@@ -13,6 +18,7 @@ html {
 body {
 	font-family: 'Montserrat', sans-serif;
 	height: 100%;
+    background-color: $kittygray !important;
 }
 
 .btn-primary {
@@ -62,4 +68,71 @@ body {
 
 .ngx-pagination .current {
     background: $kittyred !important;
+}
+
+
+.cdk-overlay-container {
+    position: fixed;
+    top: 10%;
+    left: 0;
+    right: 0;
+  z-index: 2;
+}
+
+.cdk-overlay-pane {
+    margin: 0 auto;
+    background-color: white;
+}
+
+.mat-checkbox-layout .mat-checkbox-label {
+    line-height: 24px;
+}
+
+.mat-checkbox-label {
+    color: #9B9B9B;
+    margin-left: 16px;
+    white-space: normal !important;
+}
+
+.mat-dialog-container {
+  position: relative !important;
+  border-radius: 25px !important;
+}
+
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    opacity: 1;
+}
+.cdk-overlay-dark-backdrop {
+    background: rgba(0, 0, 0, 0.288);
+}
+
+.mat-checkbox-frame {
+    background-color: $kittyred !important;
+}
+
+.mat-dialog-container {
+  background-color: #fcfcfc;
+}
+
+.btn-close-modal {
+  color: $kittyred !important;
+  float: right;
+  cursor: pointer;
+}
+
+.cdk-visually-hidden {
+    visibility: hidden;
+}
+
+.cdk-overlay-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0;
 }

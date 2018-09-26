@@ -20,4 +20,5 @@ export class Kitty {
   box_open: boolean;
   reservation: string;
   reservation_data: any;
+  info: any;
 }

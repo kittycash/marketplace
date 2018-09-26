@@ -1,17 +1,53 @@
-<div class="container-fluid">
-  <div class="jumbotron text-center">
-    <h1>
-      <img class="logo" src="assets/logo.png" alt="KittyCash"/>
-      <span translate>Explore Our kitties</span>
-    </h1>
-    <app-loader [isLoading]="isLoading"></app-loader>
-  </div>
+<div class="container-fluid mt-3">
 
-    <div class="row" [hidden]="isLoading">
-    	<div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let cat of kitties | paginate: { itemsPerPage: 8, currentPage: page }">
-    		<cat-box [cat]="cat" action="explore"></cat-box>
-    	</div>
+  <div class="row">
+    <div class="col-3 kitty-filter pt-3">
+      <div class="row"  *ngFor="let trait of traits">
+        <div class="col-12" *ngIf="trait.name == 'eye_attr'">
+          <h2>Attributes</h2>
+        </div>
+        <div class="col-12" *ngIf="trait.name == 'body_color_a'">
+          <h2>Body Color</h2>
+        </div>
+        <div class="col-12">
+          <div class="row kitty-filter-header">
+            <div class="col-3 my-auto">
+             <img class="img-fluid float-right" src="{{traitImage(trait.options[0].icon)}}">
+            </div>
+            <div class="col-9 my-auto"  (click)="trait.open = !trait.open" style="cursor: pointer;">
+              <span>{{prettyName(trait.name)}}: <i class="fa" [ngClass]="{'fa-chevron-right': !trait.open, 'fa-chevron-down': trait.open}" style="margin-left: 10px;"></i></span>
+            </div>
+          </div>
+
+          <div class="row kitty-filter-content" [hidden]="!trait.open">
+            <div class="col-12">
+              <div class="inner">
+                <div class="row">
+                  <div class="col-4" *ngFor="let o of trait.options">
+                    <a (click)="selectTrait(o)" style="cursor: pointer;">
+                      <img class="img-fluid trait" [ngClass]="{'selected': o.selected}" src="https://staging-api.kittycash.io/{{o.icon}}">
+                      <p class="text-center">{{o.displayName}}</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="col-9">
+      <div class="row" [hidden]="isLoading">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-5" *ngFor="let cat of kitties | paginate: { itemsPerPage: 6, currentPage: page }">
+            <div class="kitty-container" (click)="showKittyDetail(cat)" style="cursor: pointer;">
+              <img class="img-fluid" src="{{kittyImage(cat.info.id)}}">
+              <p class="text-center">{{cat.info.name}}</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <div class="row" [hidden]="isLoading">
     	<div class="col-xs-12 mx-auto">
