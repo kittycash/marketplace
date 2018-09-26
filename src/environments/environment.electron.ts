@@ -2,7 +2,7 @@
 export const environment = {
   production: true,
   version: 'production',
-  serverUrl: 'https://staging-api.kittycatscatarat.club/api',
+  serverUrl: 'http://127.0.0.1:6148',
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',
