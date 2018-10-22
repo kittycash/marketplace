@@ -615,6 +615,37 @@ export class ExploreComponent implements OnInit {
      this.dialog.open(KittyDetailComponent, { width: '900px' });
   }
 
+  traitHasSelections(trait:any)
+  {
+     for (var i = 0; i < trait.options.length; i++)
+     {
+        if (trait.options[i].selected)
+        {
+           return true;
+        }
+     }
+
+     return false;
+  }
+
+  selectAll(trait:any)
+  {
+     for (var i = 0; i < trait.options.length; i++)
+     {
+        trait.options[i].selected = true;
+     }
+     this.loadExplore();
+  }
+
+  selectNone(trait:any)
+  {
+     for (var i = 0; i < trait.options.length; i++)
+     {
+        trait.options[i].selected = false;
+     }
+     this.loadExplore();
+  }
+
   loadExplore(){
     this.isLoading = true;
 
@@ -651,11 +682,7 @@ export class ExploreComponent implements OnInit {
 
         this.count = res.total_count;
         this.kitties = res.entries;
-        // //Assign responce objects to Kitty Class
-        // res.entries.map(kitty =>{
-        //   this.kitties.push(Object.assign(new Kitty(), kitty));
-        // });
-
+ 
         this.isLoading = false;
       });
   }
