@@ -20,12 +20,22 @@
           </div>
 
           <div class="row kitty-filter-content" [hidden]="!trait.open">
+            <div class="col-6">
+              <small>
+                <button class="btn btn-link btn-select-all" (click)="selectAll(trait)">Select All</button>
+              </small>
+              </div>
+              <div class="col-6">
+               <small>
+                <button class="btn btn-link float-right btn-select-all" (click)="selectNone(trait)" [disabled]="!traitHasSelections(trait)">Select None</button>
+              </small>
+            </div>
             <div class="col-12">
               <div class="inner">
                 <div class="row">
                   <div class="col-4" *ngFor="let o of trait.options">
                     <a (click)="selectTrait(o)" style="cursor: pointer;">
-                      <img class="img-fluid trait" [ngClass]="{'selected': o.selected}" src="https://staging-api.kittycash.io/{{o.icon}}">
+                      <img class="img-fluid trait" [ngClass]="{'selected': o.selected}" src="{{traitImage(o.icon)}}">
                       <p class="text-center">{{o.displayName}}</p>
                     </a>
                   </div>
