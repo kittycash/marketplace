@@ -13,7 +13,9 @@
     "translations:extract": "ngx-translate-extract --input ./src --output ./src/translations/template.json --format=json --clean -sort --marker extract",
     "docs": "hads ./docs -o",
     "env": "ngx-scripts env npm_package_version",
-    "generate": "ng generate"
+    "generate": "ng generate",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "@angular/animations": "^5.2.0",
@@ -39,7 +41,8 @@
     "ngx-bootstrap": "^2.0.2",
     "ngx-pagination": "^3.1.0",
     "rxjs": "^5.5.5",
-    "zone.js": "^0.8.18"
+    "zone.js": "^0.8.18",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@angular/cli": "~1.6.5",
@@ -72,5 +75,6 @@
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3"
-  }
+  },
+  "snyk": true
 }
